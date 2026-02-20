@@ -13,7 +13,7 @@ function buildWhitelist(): string {
     { length: 0xD7A4 - 0xAC00 },
     (_, i) => String.fromCharCode(0xAC00 + i),
   ).join('');
-  const basic = ' \t\n0123456789.,·()[]「」『』〈〉《》';
+  const basic = ' \t\n.,·()[]「」『』〈〉《》';
   return sajuHanja + hangul + basic;
 }
 
@@ -36,7 +36,7 @@ export async function recognizeText(
 ): Promise<string> {
   onProgress({ status: 'loading', progress: 0, message: '언어 데이터 불러오는 중...' });
 
-  const worker = await createWorker(['kor', 'chi_tra'], 1, {
+  const worker = await createWorker('chi_tra', 1, {
     workerPath: `${TESSERACT_CDN}/dist/worker.min.js`,
     langPath: 'https://tessdata.projectnaptha.com/4.0.0',
     corePath: CORE_CDN,
