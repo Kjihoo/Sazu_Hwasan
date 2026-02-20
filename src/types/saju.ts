@@ -105,3 +105,25 @@ export interface SijiEntry {
   label: string;
   representativeHour: number;
 }
+
+export interface LiuNianInfo {
+  year: number;
+  age: number;
+  ganZhi: string;
+}
+
+export interface DaYunInfo {
+  index: number;
+  ganZhi: string;
+  startAge: number;
+  endAge: number;
+  startYear: number;
+  endYear: number;
+  liuNian: LiuNianInfo[];
+}
+
+export interface YunData {
+  isForward: boolean;
+  startAge: number;
+  daYun: DaYunInfo[];
+}

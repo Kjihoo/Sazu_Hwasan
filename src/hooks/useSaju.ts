@@ -1,12 +1,13 @@
 import { useState, useCallback } from 'react';
 import { Solar, Lunar } from 'lunar-javascript';
-import type { BirthInput, SajuResult } from '../types/saju';
+import type { BirthInput, SajuResult, YunData } from '../types/saju';
 import { parsePillar } from '../utils/pillarParser';
 import { countOhang } from '../utils/ohangMapper';
 
 export interface BaziRawData {
   sipsung: { position: string; gan: string; zhi: string[] }[];
   unsung: { position: string; value: string }[];
+  yunData: YunData;
 }
 
 export function useSaju() {
@@ -64,7 +65,33 @@ export function useSaju() {
       unsungData.push({ position: '시주', value: bazi.getTimeDiShi() });
     }
 
-    setBaziData({ sipsung: sipsungData, unsung: unsungData });
+    // 대운/세운 계산
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const yun = (bazi as any).getYun(input.gender === 'male' ? 1 : 0, 1);
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const daYunArr: any[] = yun.getDaYun(10);
+
+    const yunData: YunData = {
+      isForward: yun.isForward(),
+      startAge: yun.getStartYear(),
+      daYun: daYunArr
+        .filter((dy: any) => dy.getIndex() >= 1)
+        .map((dy: any) => ({
+          index: dy.getIndex(),
+          ganZhi: dy.getGanZhi(),
+          startAge: dy.getStartAge(),
+          endAge: dy.getEndAge(),
+          startYear: dy.getStartYear(),
+          endYear: dy.getEndYear(),
+          liuNian: dy.getLiuNian(10).map((ln: any) => ({
+            year: ln.getYear(),
+            age: ln.getAge(),
+            ganZhi: ln.getGanZhi(),
+          })),
+        })),
+    };
+
+    setBaziData({ sipsung: sipsungData, unsung: unsungData, yunData });
   }, []);
 
   return { birthInput, sajuResult, baziData, calculate };

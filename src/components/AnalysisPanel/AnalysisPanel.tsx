@@ -1,5 +1,5 @@
 import { useState, useCallback } from 'react';
-import type { SajuResult } from '../../types/saju';
+import type { SajuResult, YunData, DaYunInfo } from '../../types/saju';
 import { useLang } from '../../context/LangContext';
 import type { Lang } from '../../context/LangContext';
 import { SIPSUNG_DATA, SIPSUNG_GENERAL_DESC, SIPSUNG_GENERAL_DESC_EN, SIPSUNG_CATEGORY_DESC, SIPSUNG_CATEGORY_DESC_EN } from '../../data/sipsung';
@@ -24,10 +24,11 @@ interface AnalysisPanelProps {
   baziData: {
     sipsung: { position: string; gan: string; zhi: string[] }[];
     unsung: { position: string; value: string }[];
+    yunData: YunData;
   };
 }
 
-type TabKey = 'sipsung' | 'unsung' | 'hyungchung' | 'sinsal';
+type TabKey = 'sipsung' | 'unsung' | 'hyungchung' | 'sinsal' | 'dayun';
 type ViewMode = 'my' | 'info';
 
 const TABS: { key: TabKey; label: string; labelEn: string; hanja: string }[] = [
@@ -35,7 +36,61 @@ const TABS: { key: TabKey; label: string; labelEn: string; hanja: string }[] = [
   { key: 'unsung', label: '12운성', labelEn: '12 Life Stages', hanja: '十二運星' },
   { key: 'hyungchung', label: '형충회합', labelEn: 'Interactions', hanja: '刑沖會合' },
   { key: 'sinsal', label: '신살', labelEn: 'Spirit Stars', hanja: '神煞' },
+  { key: 'dayun', label: '대운/세운', labelEn: 'Fortune Flow', hanja: '大運歲運' },
 ];
+
+const DAYUN_GENERAL_DESC = `대운(大運)은 사주의 흐름을 10년 단위로 나눈 큰 운의 물결입니다.
+
+태어난 사주를 바탕으로, 10년마다 바뀌는 대운의 영향을 받으며 인생의 큰 방향이 결정됩니다.
+
+• 대운 천간: 그 10년 동안의 외적·사회적 환경의 기운
+• 대운 지지: 그 10년 동안의 내적·심리적 변화의 기운
+
+세운(歲運)은 매년 바뀌는 그해의 운을 뜻합니다. 대운이라는 큰 강물 위에 세운이라는 파도가 얹히는 것처럼, 대운의 틀 안에서 세운이 세부적인 흐름을 만들어냅니다.
+
+• 대운은 방향, 세운은 속도
+• 좋은 대운에 좋은 세운이 겹치면 크게 발복합니다
+• 어려운 대운도 좋은 세운으로 버틸 수 있습니다
+
+각 대운 카드를 클릭하면 그 시기의 상세한 기운과 추천 조치를 볼 수 있습니다.`;
+
+const DAYUN_GENERAL_DESC_EN = `Major Fortune Cycles (大運) divide the flow of your destiny into 10-year periods.
+
+Your BaZi chart is the foundation, and every 10 years, a new Major Fortune Cycle shapes the broad direction of your life journey.
+
+• Cycle Stem: The external, social energy of those 10 years
+• Cycle Branch: The internal, psychological energy of those 10 years
+
+Annual Fortune (歲運) is the energy of each passing year — like waves riding atop the great river of your Major Fortune Cycle.
+
+• Major Cycles set the direction; Annual Fortune sets the pace
+• When a favorable cycle meets a favorable year, great fortune blooms
+• Even a challenging cycle can be navigated through positive annual fortune
+
+Click any cycle card to explore the detailed energy and recommended actions for that period.`;
+
+const DAYUN_ADVICE: Record<string, { ko: string; en: string }> = {
+  '비겁': {
+    ko: '• 독립심과 경쟁심이 강해지는 시기입니다.\n• 자기 사업이나 독립적인 활동에 유리합니다.\n• 형제·동료와의 경쟁이 생길 수 있으니 협력도 병행하세요.\n• 나의 영역을 구축하고 자기 가치를 높이세요.',
+    en: '• A period of independence and competitive drive.\n• Favorable for self-employment or independent ventures.\n• Competition with siblings or peers may arise — balance with cooperation.\n• Focus on building your personal brand and self-worth.',
+  },
+  '식상': {
+    ko: '• 표현력과 창의성이 풍부해지는 시기입니다.\n• 예술, 글쓰기, 강의, 사업 아이디어 등 표현 활동에 유리합니다.\n• 새로운 도전과 변화를 적극적으로 추구하세요.\n• 자신의 재능을 세상에 드러내는 시기입니다.',
+    en: '• A period of rich expression and creativity.\n• Favorable for arts, writing, teaching, and entrepreneurship.\n• Embrace new challenges and changes.\n• This is your time to share your talents with the world.',
+  },
+  '재성': {
+    ko: '• 재물운과 현실적 성취의 시기입니다.\n• 재테크, 사업 확장, 직장 성과에 집중하기 좋습니다.\n• 부지런히 노력하면 결실을 맺기 쉬운 시기입니다.\n• 건강과 지출 관리도 함께 신경 쓰세요.',
+    en: '• A period of wealth and tangible achievement.\n• Good for investment, business growth, and career performance.\n• Diligent effort will bear fruit during this cycle.\n• Manage spending wisely and take care of your health.',
+  },
+  '관성': {
+    ko: '• 명예와 직업운이 강해지는 시기입니다.\n• 승진, 취업, 공직 진출, 사회적 인정에 유리합니다.\n• 규율과 책임감을 발휘할 기회가 옵니다.\n• 법적 문제와 건강에 주의하고, 권위자와의 관계를 잘 관리하세요.',
+    en: '• A period of heightened career and prestige.\n• Favorable for promotions, job offers, and social recognition.\n• Opportunities to demonstrate discipline and responsibility will arise.\n• Be mindful of legal matters, health, and relationships with authority figures.',
+  },
+  '인성': {
+    ko: '• 학문, 지혜, 정신적 성장의 시기입니다.\n• 공부, 자격증 취득, 종교·철학 탐구에 유리합니다.\n• 어머니 혹은 스승의 도움을 받을 수 있습니다.\n• 과한 의존이나 게으름을 경계하고, 충분한 휴식도 취하세요.',
+    en: '• A period of scholarship, wisdom, and spiritual growth.\n• Favorable for studying, certifications, and exploring philosophy or religion.\n• Support from a mother figure or mentor may come.\n• Guard against over-dependence or laziness; rest when you need it.',
+  },
+};
 
 const POSITION_EN: Record<string, string> = {
   '년주': 'Year', '월주': 'Month', '일주': 'Day', '시주': 'Hour',
@@ -46,6 +101,7 @@ export default function AnalysisPanel({ result, baziData }: AnalysisPanelProps) 
   const [activeTab, setActiveTab] = useState<TabKey>('sipsung');
   const [viewMode, setViewMode] = useState<ViewMode>('my');
   const [modalContent, setModalContent] = useState<AnalysisModalContent | null>(null);
+  const currentYear = new Date().getFullYear();
 
   const openModal = useCallback((content: AnalysisModalContent) => {
     setModalContent(content);
@@ -112,6 +168,11 @@ export default function AnalysisPanel({ result, baziData }: AnalysisPanelProps) 
           viewMode === 'my'
             ? <MySinsal result={result} onOpen={openModal} lang={lang} />
             : <InfoBox text={lang === 'en' ? SINSAL_GENERAL_DESC_EN : SINSAL_GENERAL_DESC} />
+        )}
+        {activeTab === 'dayun' && (
+          viewMode === 'my'
+            ? <MyDaYun yunData={baziData.yunData} result={result} onOpen={openModal} lang={lang} currentYear={currentYear} />
+            : <InfoBox text={lang === 'en' ? DAYUN_GENERAL_DESC_EN : DAYUN_GENERAL_DESC} />
         )}
       </div>
 
@@ -507,6 +568,182 @@ function MyHyungchung({ result, onOpen, lang }: { result: SajuResult; onOpen: (c
           ))}
         </div>
       )}
+    </div>
+  );
+}
+
+/* === 대운 십성 계산 === */
+
+function calcDaYunSipsung(dayStemHanja: string, yunStemHanja: string): { korean: string; category: string } | null {
+  const dayEntry = CHEONGAN_DATA[dayStemHanja];
+  const yunEntry = CHEONGAN_DATA[yunStemHanja];
+  if (!dayEntry || !yunEntry) return null;
+
+  const dayOhang = dayEntry.ohang;
+  const yunOhang = yunEntry.ohang;
+  const samePolarity = dayEntry.polarity === yunEntry.polarity;
+
+  if (dayOhang === yunOhang) {
+    return samePolarity ? { korean: '비견', category: '비겁' } : { korean: '겁재', category: '비겁' };
+  }
+  if (OHANG_DATA[dayOhang].generates === yunOhang) {
+    return samePolarity ? { korean: '식신', category: '식상' } : { korean: '상관', category: '식상' };
+  }
+  if (OHANG_DATA[dayOhang].overcomes === yunOhang) {
+    return samePolarity ? { korean: '편재', category: '재성' } : { korean: '정재', category: '재성' };
+  }
+  if (OHANG_DATA[yunOhang].overcomes === dayOhang) {
+    return samePolarity ? { korean: '편관', category: '관성' } : { korean: '정관', category: '관성' };
+  }
+  if (OHANG_DATA[yunOhang].generates === dayOhang) {
+    return samePolarity ? { korean: '편인', category: '인성' } : { korean: '정인', category: '인성' };
+  }
+  return null;
+}
+
+function openDaYunModal(
+  dy: DaYunInfo,
+  result: SajuResult,
+  onOpen: (c: AnalysisModalContent) => void,
+  lang: Lang,
+  currentYear: number,
+) {
+  const stemChar = dy.ganZhi[0];
+  const branchChar = dy.ganZhi[1];
+  const stemEntry = CHEONGAN_DATA[stemChar];
+  const branchEntry = JIJI_DATA[branchChar];
+  const dayStem = result.dayPillar.stem;
+
+  const sipsung = calcDaYunSipsung(dayStem.hanja, stemChar);
+  const isCurrent = dy.startYear <= currentYear && currentYear <= dy.endYear;
+  const isPast = dy.endYear < currentYear;
+
+  const currentLiuNian = dy.liuNian.find(ln => ln.year === currentYear);
+
+  const sections: AnalysisModalContent['sections'] = [];
+
+  // 1. 이 시기의 기운
+  let energyText = '';
+  if (lang === 'en') {
+    energyText = `Stem ${stemEntry?.hangul || ''}(${stemChar}): ${stemEntry?.meaningEn || ''}\n\nBranch ${branchEntry?.hangul || ''}(${branchChar}): ${branchEntry?.meaningEn || ''}`;
+    if (sipsung) {
+      energyText += `\n\nRelationship to your Day Master (${dayStem.hanja}): This cycle carries the energy of "${sipsung.korean}" (${sipsung.category}).`;
+    }
+  } else {
+    energyText = `천간 ${stemEntry?.hangul || ''}(${stemChar}): ${stemEntry?.meaning || ''}\n\n지지 ${branchEntry?.hangul || ''}(${branchChar}): ${branchEntry?.meaning || ''}`;
+    if (sipsung) {
+      energyText += `\n\n일간(${dayStem.hanja})과의 관계: 이 대운은 "${sipsung.korean}" (${sipsung.category})의 기운을 가집니다.`;
+    }
+  }
+  sections.push({ heading: lang === 'en' ? 'Energy of this Cycle' : '이 시기의 기운', text: energyText });
+
+  // 2. 올해 운세 (현재 대운에만)
+  if (isCurrent && currentLiuNian) {
+    const lnStem = CHEONGAN_DATA[currentLiuNian.ganZhi[0]];
+    const lnBranch = JIJI_DATA[currentLiuNian.ganZhi[1]];
+    const lnText = lang === 'en'
+      ? `${currentYear} · Age ${currentLiuNian.age} · ${currentLiuNian.ganZhi}\n\nStem ${lnStem?.hangul || ''}(${currentLiuNian.ganZhi[0]}): ${lnStem?.meaningEn || ''}\nBranch ${lnBranch?.hangul || ''}(${currentLiuNian.ganZhi[1]}): ${lnBranch?.meaningEn || ''}`
+      : `${currentYear}년 · 만 ${currentLiuNian.age}세 · ${currentLiuNian.ganZhi}\n\n천간 ${lnStem?.hangul || ''}(${currentLiuNian.ganZhi[0]}): ${lnStem?.meaning || ''}\n지지 ${lnBranch?.hangul || ''}(${currentLiuNian.ganZhi[1]}): ${lnBranch?.meaning || ''}`;
+    sections.push({
+      heading: lang === 'en' ? `This Year's Fortune (${currentYear})` : `올해 운세 (${currentYear}년)`,
+      text: lnText,
+    });
+  }
+
+  // 3. 세운 흐름 목록
+  const liuNianText = dy.liuNian.map(ln => {
+    const marker = ln.year === currentYear ? (lang === 'en' ? ' ◀ Now' : ' ◀ 현재') : '';
+    return lang === 'en'
+      ? `${ln.year}  Age ${ln.age}  ${ln.ganZhi}${marker}`
+      : `${ln.year}년  만 ${ln.age}세  ${ln.ganZhi}${marker}`;
+  }).join('\n');
+  sections.push({
+    heading: lang === 'en' ? 'Annual Fortune (歲運) in this Cycle' : '이 시기의 세운 (歲運) 흐름',
+    text: liuNianText,
+  });
+
+  // 4. 추천 조치
+  if (sipsung) {
+    const advice = DAYUN_ADVICE[sipsung.category];
+    if (advice) {
+      sections.push({
+        heading: lang === 'en' ? 'Recommended Actions' : '추천 조치',
+        text: lang === 'en' ? advice.en : advice.ko,
+      });
+    }
+  }
+
+  onOpen({
+    title: lang === 'en' ? `${dy.ganZhi} Major Fortune Cycle` : `${dy.ganZhi} 대운 (大運)`,
+    badge: lang === 'en'
+      ? `Age ${dy.startAge}–${dy.endAge} · ${dy.startYear}–${dy.endYear}`
+      : `${dy.startAge}~${dy.endAge}세 · ${dy.startYear}~${dy.endYear}년`,
+    badgeColor: isCurrent ? '#c62828' : (isPast ? '#888888' : '#2d6a4f'),
+    sections,
+  });
+}
+
+/* === 대운 타임라인 컴포넌트 === */
+
+function MyDaYun({ yunData, result, onOpen, lang, currentYear }: {
+  yunData: YunData;
+  result: SajuResult;
+  onOpen: (c: AnalysisModalContent) => void;
+  lang: Lang;
+  currentYear: number;
+}) {
+  const currentDaYun = yunData.daYun.find(dy => dy.startYear <= currentYear && currentYear <= dy.endYear);
+
+  return (
+    <div>
+      {/* 현재 위치 요약 */}
+      {currentDaYun && (
+        <div className={styles.yunCurrentInfo}>
+          <div className={styles.yunCurrentInfoLabel}>
+            {lang === 'en' ? 'You are currently in' : '현재 나의 대운'}
+          </div>
+          <div className={styles.yunCurrentInfoValue}>
+            {currentDaYun.ganZhi} {lang === 'en' ? 'Major Fortune Cycle' : '대운'}
+          </div>
+          <div className={styles.yunCurrentInfoSub}>
+            {lang === 'en'
+              ? `Age ${currentDaYun.startAge}–${currentDaYun.endAge} · ${currentDaYun.startYear}–${currentDaYun.endYear}`
+              : `${currentDaYun.startAge}~${currentDaYun.endAge}세 · ${currentDaYun.startYear}~${currentDaYun.endYear}년`}
+          </div>
+        </div>
+      )}
+
+      {/* 타임라인 */}
+      <div className={styles.yunTimeline}>
+        {yunData.daYun.map(dy => {
+          const isCurrent = dy.startYear <= currentYear && currentYear <= dy.endYear;
+          const isPast = dy.endYear < currentYear;
+          return (
+            <button
+              key={dy.index}
+              className={`${styles.yunCard} ${isCurrent ? styles.yunCardCurrent : ''} ${isPast ? styles.yunCardPast : ''}`}
+              onClick={() => openDaYunModal(dy, result, onOpen, lang, currentYear)}
+              type="button"
+            >
+              {isCurrent && (
+                <div className={styles.yunCurrentBadge}>
+                  {lang === 'en' ? 'NOW' : '현재'}
+                </div>
+              )}
+              <div className={styles.yunGanZhi}>{dy.ganZhi}</div>
+              <div className={styles.yunAge}>
+                {lang === 'en' ? `${dy.startAge}–${dy.endAge}` : `${dy.startAge}~${dy.endAge}세`}
+              </div>
+              <div className={styles.yunYear}>{dy.startYear}</div>
+              <div className={styles.yunYear}>~{dy.endYear}</div>
+            </button>
+          );
+        })}
+      </div>
+
+      <p className={styles.yunHint}>
+        {lang === 'en' ? 'Click any cycle to see details and recommended actions.' : '각 대운 카드를 클릭하면 상세 정보와 추천 조치를 볼 수 있습니다.'}
+      </p>
     </div>
   );
 }
