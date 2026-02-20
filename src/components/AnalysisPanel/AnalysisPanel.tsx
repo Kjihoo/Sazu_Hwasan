@@ -743,6 +743,35 @@ function MyDaYun({ yunData, result, onOpen, lang, currentYear }: {
           ? (lang === 'en' ? 'Click the highlighted card again to open details.' : '선택된 카드를 한 번 더 클릭하면 상세 정보가 열립니다.')
           : (lang === 'en' ? 'Click any cycle to explore.' : '각 대운 카드를 클릭해 살펴보세요.')}
       </p>
+
+      {/* 세운 목록 */}
+      {displayedDaYun && (
+        <div className={styles.liuNianSection}>
+          <div className={styles.liuNianTitle}>
+            {lang === 'en'
+              ? `Annual Fortune (歲運) · ${displayedDaYun.ganZhi} Cycle`
+              : `세운 (歲運) · ${displayedDaYun.ganZhi} 대운`}
+          </div>
+          <div className={styles.liuNianGrid}>
+            {displayedDaYun.liuNian.map(ln => {
+              const isCurrent = ln.year === currentYear;
+              return (
+                <div
+                  key={ln.year}
+                  className={`${styles.liuNianItem} ${isCurrent ? styles.liuNianItemCurrent : ''}`}
+                >
+                  <div className={styles.liuNianGanZhi}>{ln.ganZhi}</div>
+                  <div className={styles.liuNianYear}>{ln.year}</div>
+                  <div className={styles.liuNianAge}>
+                    {lang === 'en' ? `Age ${ln.age}` : `만 ${ln.age}세`}
+                  </div>
+                  {isCurrent && <div className={styles.liuNianCurrentMark}>◀ 현재</div>}
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      )}
     </div>
   );
 }
