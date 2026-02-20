@@ -273,6 +273,170 @@
   max-width: 100%;
 }
 
+/* 모드 탭 */
+.modeTabs {
+  display: flex;
+  gap: var(--spacing-xs);
+  border-bottom: 2px solid var(--color-border-light);
+  padding-bottom: 0;
+}
+
+.modeTab {
+  padding: var(--spacing-sm) var(--spacing-lg);
+  background: transparent;
+  color: var(--color-ink-light);
+  border: none;
+  border-bottom: 2px solid transparent;
+  margin-bottom: -2px;
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: color 0.2s, border-color 0.2s;
+}
+
+.modeTab:hover {
+  color: var(--color-ink);
+}
+
+.modeTabActive {
+  color: var(--color-ink);
+  border-bottom-color: var(--color-accent-red);
+  font-weight: 700;
+}
+
+/* 이미지 모드 */
+.imageSection {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-md);
+}
+
+.dropZone {
+  border: 2px dashed var(--color-border-light);
+  border-radius: var(--radius-md);
+  background: var(--color-bg-card);
+  min-height: 180px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: border-color 0.2s, background 0.2s;
+  overflow: hidden;
+}
+
+.dropZone:focus {
+  outline: none;
+  border-color: var(--color-accent-gold);
+}
+
+.dropZoneOver {
+  border-color: var(--color-accent-gold);
+  background: #fdf8ed;
+}
+
+.dropZoneHasImage {
+  cursor: default;
+  border-style: solid;
+  border-color: var(--color-border-light);
+  min-height: unset;
+}
+
+.dropZoneContent {
+  text-align: center;
+  padding: var(--spacing-xl);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--spacing-xs);
+}
+
+.dropZoneIcon {
+  font-size: 2.5rem;
+  line-height: 1;
+}
+
+.dropZoneText {
+  font-size: 0.95rem;
+  color: var(--color-ink);
+  font-weight: 500;
+  margin: 0;
+}
+
+.dropZoneSubtext {
+  font-size: 0.82rem;
+  color: var(--color-border);
+  margin: 0;
+}
+
+.imagePreview {
+  max-width: 100%;
+  max-height: 400px;
+  display: block;
+  border-radius: var(--radius-sm);
+}
+
+.fileInput {
+  display: none;
+}
+
+.imageActions {
+  display: flex;
+  gap: var(--spacing-sm);
+}
+
+/* 진행 상황 */
+.progressArea {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-xs);
+}
+
+.progressBar {
+  height: 8px;
+  background: var(--color-border-light);
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.progressFill {
+  height: 100%;
+  background: var(--color-accent-gold);
+  border-radius: 4px;
+  transition: width 0.3s ease;
+}
+
+.progressText {
+  font-size: 0.88rem;
+  color: var(--color-ink-light);
+  margin: 0;
+}
+
+.progressNote {
+  font-size: 0.78rem;
+  color: var(--color-border);
+  margin: 0;
+}
+
+.progressError {
+  font-size: 0.88rem;
+  color: var(--color-accent-red);
+  margin: 0;
+}
+
+/* OCR 완료 후 텍스트 편집 영역 */
+.ocrTextArea {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-sm);
+}
+
+.ocrTextLabel {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--color-ink-light);
+}
+
 @media (max-width: 480px) {
   .inputActions {
     flex-wrap: wrap;
@@ -291,5 +455,10 @@
 
   .dictGrid {
     grid-template-columns: repeat(auto-fill, minmax(70px, 1fr));
+  }
+
+  .modeTab {
+    font-size: 0.85rem;
+    padding: var(--spacing-sm) var(--spacing-md);
   }
 }
