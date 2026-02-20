@@ -1,0 +1,295 @@
+.page {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: var(--spacing-xl) var(--spacing-md);
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-xl);
+}
+
+/* 소개 */
+.intro {
+  text-align: center;
+}
+
+.introTitle {
+  font-family: var(--font-hanja);
+  font-size: 1.5rem;
+  color: var(--color-ink);
+  margin-bottom: var(--spacing-sm);
+}
+
+.introDesc {
+  font-size: 0.95rem;
+  color: var(--color-ink-light);
+  line-height: 1.7;
+}
+
+/* 입력 영역 */
+.inputSection {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-sm);
+}
+
+.textarea {
+  width: 100%;
+  padding: var(--spacing-md);
+  border: 1.5px solid var(--color-border-light);
+  border-radius: var(--radius-md);
+  background: var(--color-bg-card);
+  color: var(--color-ink);
+  font-family: var(--font-body);
+  font-size: 1rem;
+  line-height: 1.7;
+  resize: vertical;
+  box-sizing: border-box;
+  transition: border-color 0.2s;
+}
+
+.textarea:focus {
+  outline: none;
+  border-color: var(--color-accent-gold);
+}
+
+.textarea::placeholder {
+  color: var(--color-border);
+}
+
+.inputActions {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+}
+
+.hint {
+  font-size: 0.8rem;
+  color: var(--color-border);
+  margin-left: auto;
+}
+
+/* 버튼 */
+.btnPrimary {
+  padding: var(--spacing-sm) var(--spacing-lg);
+  background: var(--color-ink);
+  color: var(--color-bg);
+  border: none;
+  border-radius: var(--radius-sm);
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.btnPrimary:hover:not(:disabled) {
+  background: var(--color-accent-red);
+}
+
+.btnPrimary:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.btnSecondary {
+  padding: var(--spacing-sm) var(--spacing-md);
+  background: transparent;
+  color: var(--color-ink-light);
+  border: 1px solid var(--color-border-light);
+  border-radius: var(--radius-sm);
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: border-color 0.2s;
+}
+
+.btnSecondary:hover:not(:disabled) {
+  border-color: var(--color-border);
+}
+
+.btnSecondary:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+/* 결과 영역 */
+.resultSection {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-sm);
+}
+
+.resultHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.resultLabel {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--color-ink-light);
+}
+
+.btnCopy {
+  padding: var(--spacing-xs) var(--spacing-md);
+  background: transparent;
+  color: var(--color-accent-gold);
+  border: 1px solid var(--color-accent-gold);
+  border-radius: var(--radius-sm);
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s;
+}
+
+.btnCopy:hover {
+  background: var(--color-accent-gold);
+  color: var(--color-bg);
+}
+
+.resultBox {
+  padding: var(--spacing-lg);
+  background: var(--color-bg-card);
+  border: 1px solid var(--color-border-light);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-sm);
+}
+
+.annotatedText {
+  font-size: 1.05rem;
+  line-height: 2.6;
+  color: var(--color-ink);
+  margin: 0;
+  word-break: break-word;
+}
+
+/* Ruby 주석 */
+.hanjaRuby {
+  display: inline-flex;
+  flex-direction: column-reverse;
+  align-items: center;
+  vertical-align: bottom;
+  line-height: 1;
+  margin: 0 1px;
+}
+
+.hanjaChar {
+  font-family: var(--font-hanja);
+  font-size: 1.1em;
+  color: var(--color-accent-red);
+  font-weight: 700;
+}
+
+.hanjaRt {
+  font-size: 0.58em;
+  color: var(--color-ink-light);
+  white-space: nowrap;
+  ruby-position: over;
+  line-height: 1.2;
+}
+
+.hanjaUnknown {
+  color: var(--color-border);
+  font-family: var(--font-hanja);
+}
+
+.resultNote {
+  font-size: 0.8rem;
+  color: var(--color-border);
+}
+
+/* 사전 영역 */
+.dictSection {
+  border-top: 1px solid var(--color-border-light);
+  padding-top: var(--spacing-md);
+}
+
+.dictToggle {
+  background: none;
+  border: none;
+  color: var(--color-ink-light);
+  font-size: 0.9rem;
+  cursor: pointer;
+  padding: var(--spacing-xs) 0;
+  font-family: var(--font-body);
+}
+
+.dictToggle:hover {
+  color: var(--color-ink);
+}
+
+.dictContent {
+  margin-top: var(--spacing-md);
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-lg);
+}
+
+.dictGroup {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-sm);
+}
+
+.dictGroupTitle {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--color-ink-light);
+  border-bottom: 1px solid var(--color-border-light);
+  padding-bottom: var(--spacing-xs);
+  margin: 0;
+}
+
+.dictGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(90px, 1fr));
+  gap: var(--spacing-xs);
+}
+
+.dictItem {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: var(--spacing-xs) var(--spacing-sm);
+  background: var(--color-bg-card);
+  border: 1px solid var(--color-border-light);
+  border-radius: var(--radius-sm);
+  text-align: center;
+}
+
+.dictChar {
+  font-family: var(--font-hanja);
+  font-size: 1.3rem;
+  color: var(--color-accent-red);
+  font-weight: 700;
+}
+
+.dictInfo {
+  font-size: 0.7rem;
+  color: var(--color-ink-light);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100%;
+}
+
+@media (max-width: 480px) {
+  .inputActions {
+    flex-wrap: wrap;
+  }
+
+  .hint {
+    margin-left: 0;
+    width: 100%;
+  }
+
+  .resultHeader {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--spacing-xs);
+  }
+
+  .dictGrid {
+    grid-template-columns: repeat(auto-fill, minmax(70px, 1fr));
+  }
+}

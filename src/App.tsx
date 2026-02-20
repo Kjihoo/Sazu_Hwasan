@@ -8,9 +8,13 @@ import PillarDisplay from './components/PillarDisplay/PillarDisplay';
 import OhangSummary from './components/OhangSummary/OhangSummary';
 import AnalysisPanel from './components/AnalysisPanel/AnalysisPanel';
 import MemoModal from './components/MemoModal/MemoModal';
+import HanjaPage from './components/HanjaPage/HanjaPage';
 import styles from './App.module.css';
 
+type Page = 'saju' | 'hanja';
+
 function App() {
+  const [page, setPage] = useState<Page>('saju');
   const { birthInput, sajuResult, baziData, calculate } = useSaju();
   const [memoState, setMemoState] = useState<MemoState>({ isOpen: false, charInfo: null });
   const resultRef = useRef<HTMLDivElement>(null);
@@ -32,15 +36,21 @@ function App() {
 
   return (
     <div className={styles.app}>
-      <Header />
+      <Header currentPage={page} onNavigate={setPage} />
       <main className={styles.main}>
-        <InputForm onSubmit={handleSubmit} />
-        {sajuResult && baziData && (
-          <div ref={resultRef}>
-            <PillarDisplay result={sajuResult} onCharClick={handleCharClick} />
-            <OhangSummary result={sajuResult} />
-            <AnalysisPanel result={sajuResult} baziData={baziData} />
-          </div>
+        {page === 'saju' ? (
+          <>
+            <InputForm onSubmit={handleSubmit} />
+            {sajuResult && baziData && (
+              <div ref={resultRef}>
+                <PillarDisplay result={sajuResult} onCharClick={handleCharClick} />
+                <OhangSummary result={sajuResult} />
+                <AnalysisPanel result={sajuResult} baziData={baziData} />
+              </div>
+            )}
+          </>
+        ) : (
+          <HanjaPage />
         )}
       </main>
       <MemoModal
