@@ -262,7 +262,7 @@ export default function HanjaPage() {
                     />
                   </div>
                   <p className={styles.progressText}>{ocrProgress.message} ({ocrProgress.progress}%)</p>
-                  <p className={styles.progressNote}>처음 사용 시 언어 데이터를 다운로드합니다 (~10MB)</p>
+                  <p className={styles.progressNote}>처음 사용 시 언어 데이터를 다운로드합니다 (~30MB, 한글+한자)</p>
                 </>
               )}
             </div>
