@@ -16,15 +16,24 @@ function getDaysInMonth(year: number, month: number): number {
 }
 
 export default function InputForm({ onSubmit }: InputFormProps) {
+  const [calendarType, setCalendarType] = useState<'solar' | 'lunar'>('solar');
   const [year, setYear] = useState(1990);
   const [month, setMonth] = useState(1);
   const [day, setDay] = useState(1);
+  const [isLeapMonth, setIsLeapMonth] = useState(false);
   const [sijiIndex, setSijiIndex] = useState(0);
   const [gender, setGender] = useState<'male' | 'female'>('male');
   const [unknownTime, setUnknownTime] = useState(false);
 
-  const daysInMonth = getDaysInMonth(year, month);
+  // 음력은 최대 30일, 양력은 해당 월의 실제 일수
+  const daysInMonth = calendarType === 'lunar' ? 30 : getDaysInMonth(year, month);
   const days = Array.from({ length: daysInMonth }, (_, i) => i + 1);
+
+  const handleCalendarChange = (type: 'solar' | 'lunar') => {
+    setCalendarType(type);
+    setDay(1);
+    setIsLeapMonth(false);
+  };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -37,11 +46,49 @@ export default function InputForm({ onSubmit }: InputFormProps) {
       minute: 0,
       gender,
       unknownTime,
+      calendarType,
+      isLeapMonth,
     });
   };
 
   return (
     <form className={styles.form} onSubmit={handleSubmit}>
+      <div className={styles.section}>
+        <label className={styles.label}>양력 / 음력</label>
+        <div className={styles.genderRow}>
+          <label className={`${styles.genderOption} ${calendarType === 'solar' ? styles.genderActive : ''}`}>
+            <input
+              type="radio"
+              name="calendarType"
+              value="solar"
+              checked={calendarType === 'solar'}
+              onChange={() => handleCalendarChange('solar')}
+            />
+            양력
+          </label>
+          <label className={`${styles.genderOption} ${calendarType === 'lunar' ? styles.genderActive : ''}`}>
+            <input
+              type="radio"
+              name="calendarType"
+              value="lunar"
+              checked={calendarType === 'lunar'}
+              onChange={() => handleCalendarChange('lunar')}
+            />
+            음력
+          </label>
+        </div>
+        {calendarType === 'lunar' && (
+          <label className={styles.checkboxLabel}>
+            <input
+              type="checkbox"
+              checked={isLeapMonth}
+              onChange={e => setIsLeapMonth(e.target.checked)}
+            />
+            윤달
+          </label>
+        )}
+      </div>
+
       <div className={styles.section}>
         <label className={styles.label}>생년월일</label>
         <div className={styles.dateRow}>
@@ -59,7 +106,7 @@ export default function InputForm({ onSubmit }: InputFormProps) {
             value={month}
             onChange={e => {
               setMonth(Number(e.target.value));
-              setDay(prev => Math.min(prev, getDaysInMonth(year, Number(e.target.value))));
+              setDay(prev => Math.min(prev, calendarType === 'lunar' ? 30 : getDaysInMonth(year, Number(e.target.value))));
             }}
           >
             {months.map(m => (

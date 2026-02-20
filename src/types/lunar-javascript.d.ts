@@ -6,6 +6,9 @@ declare module 'lunar-javascript' {
   }
 
   export class Lunar {
+    static fromYmd(year: number, month: number, day: number, isLeapMonth?: boolean): Lunar;
+    static fromYmdHms(year: number, month: number, day: number, hour: number, minute: number, second: number, isLeapMonth?: boolean): Lunar;
+    getSolar(): Solar;
     getEightChar(): EightChar;
   }
 

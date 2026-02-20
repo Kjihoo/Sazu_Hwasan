@@ -10,6 +10,8 @@ export interface BirthInput {
   minute: number;
   gender: 'male' | 'female';
   unknownTime: boolean;
+  calendarType: 'solar' | 'lunar';
+  isLeapMonth: boolean;
 }
 
 export interface CharInfo {

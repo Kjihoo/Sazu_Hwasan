@@ -1,5 +1,5 @@
 import { useState, useCallback } from 'react';
-import { Solar } from 'lunar-javascript';
+import { Solar, Lunar } from 'lunar-javascript';
 import type { BirthInput, SajuResult } from '../types/saju';
 import { parsePillar } from '../utils/pillarParser';
 import { countOhang } from '../utils/ohangMapper';
@@ -17,9 +17,13 @@ export function useSaju() {
   const calculate = useCallback((input: BirthInput) => {
     setBirthInput(input);
 
-    const solar = input.unknownTime
-      ? Solar.fromYmd(input.year, input.month, input.day)
-      : Solar.fromYmdHms(input.year, input.month, input.day, input.hour, input.minute, 0);
+    const solar = input.calendarType === 'lunar'
+      ? (input.unknownTime
+          ? Lunar.fromYmd(input.year, input.month, input.day, input.isLeapMonth).getSolar()
+          : Lunar.fromYmdHms(input.year, input.month, input.day, input.hour, input.minute, 0, input.isLeapMonth).getSolar())
+      : (input.unknownTime
+          ? Solar.fromYmd(input.year, input.month, input.day)
+          : Solar.fromYmdHms(input.year, input.month, input.day, input.hour, input.minute, 0));
 
     const lunar = solar.getLunar();
     const bazi = lunar.getEightChar();
