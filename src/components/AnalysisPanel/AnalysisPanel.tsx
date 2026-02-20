@@ -32,11 +32,11 @@ type TabKey = 'sipsung' | 'unsung' | 'hyungchung' | 'sinsal' | 'dayun';
 type ViewMode = 'my' | 'info';
 
 const TABS: { key: TabKey; label: string; labelEn: string; hanja: string }[] = [
+  { key: 'dayun', label: '대운/세운', labelEn: 'Fortune Flow', hanja: '大運歲運' },
   { key: 'sipsung', label: '십성', labelEn: 'Ten Gods', hanja: '十星' },
+  { key: 'sinsal', label: '신살', labelEn: 'Spirit Stars', hanja: '神煞' },
   { key: 'unsung', label: '12운성', labelEn: '12 Life Stages', hanja: '十二運星' },
   { key: 'hyungchung', label: '형충회합', labelEn: 'Interactions', hanja: '刑沖會合' },
-  { key: 'sinsal', label: '신살', labelEn: 'Spirit Stars', hanja: '神煞' },
-  { key: 'dayun', label: '대운/세운', labelEn: 'Fortune Flow', hanja: '大運歲運' },
 ];
 
 const DAYUN_GENERAL_DESC = `대운(大運)은 사주의 흐름을 10년 단위로 나눈 큰 운의 물결입니다.
@@ -92,13 +92,75 @@ const DAYUN_ADVICE: Record<string, { ko: string; en: string }> = {
   },
 };
 
+const DAYUN_PLAIN: Record<string, {
+  theme: { ko: string; en: string };
+  expect: { ko: string; en: string };
+  caution: { ko: string; en: string };
+}> = {
+  '비겁': {
+    theme: { ko: '독립과 경쟁의 시기', en: 'Competition & Independence' },
+    expect: {
+      ko: '나와 비슷한 사람들이 주변에 많아집니다. 독립적인 활동이나 나만의 길을 개척하려는 욕구가 강해지고, 새로운 파트너나 동료와의 연대 기회가 생깁니다. 자신의 능력을 직접 증명할 기회가 많아지는 시기입니다.',
+      en: "You'll encounter more peers and rivals. You'll feel a strong pull toward independence, and new partnerships or collaborations may emerge. Opportunities to prove your own abilities will increase.",
+    },
+    caution: {
+      ko: '경쟁 속에서 재물 손실에 주의하세요. 고집이 세져 갈등이 생기기 쉬우니 배려와 협력을 잊지 마세요. 형제·동료와의 분쟁 가능성도 있습니다.',
+      en: "Financial losses may arise from rivalry. Guard against stubbornness — cooperation and consideration for others are key. Disputes with siblings or business partners are possible.",
+    },
+  },
+  '식상': {
+    theme: { ko: '표현과 창조의 시기', en: 'Expression & Creativity' },
+    expect: {
+      ko: '창의적인 아이디어가 풍부해지고, 자신을 표현하고 싶은 욕구가 강해집니다. 새로운 사업 아이디어, 글쓰기, 강의, 예술 등 활동이 활발해집니다. 자녀와 관련된 일도 많아질 수 있습니다.',
+      en: 'Creative energy flourishes and you\'ll feel a strong urge to express yourself. New business ideas, writing, teaching, and artistic pursuits thrive. Matters related to children may also arise.',
+    },
+    caution: {
+      ko: '직장이나 권위자와의 관계가 불안정해질 수 있으니 말과 행동을 신중히 하세요. 아이디어는 많지만 실행력을 꾸준히 유지하는 것이 중요합니다.',
+      en: "Relationships with authority figures or at work may become unstable — be thoughtful in your words and actions. You'll have many ideas; the key is consistent follow-through.",
+    },
+  },
+  '재성': {
+    theme: { ko: '재물과 현실 성취의 시기', en: 'Wealth & Achievement' },
+    expect: {
+      ko: '재물 기회가 늘어나고 현실적인 성과를 거두기 좋은 시기입니다. 직장에서의 성과, 투자나 사업 확장, 이성 인연 등이 활발해집니다. 부지런히 움직이면 결실을 맺기 쉽습니다.',
+      en: 'Financial opportunities increase and practical achievements come more easily. Career performance, investment, business growth, and romantic connections are all favorable. Hard work is well rewarded.',
+    },
+    caution: {
+      ko: '과욕으로 인한 건강 악화나 재물 손실에 주의하세요. 여러 방면에 에너지를 분산하기보다 집중적으로 관리하는 것이 유리합니다.',
+      en: 'Guard against overexertion that strains your health or leads to financial missteps. Focus your energy on key priorities rather than spreading yourself too thin.',
+    },
+  },
+  '관성': {
+    theme: { ko: '명예와 직업운의 시기', en: 'Career & Recognition' },
+    expect: {
+      ko: '사회적인 인정을 받거나 직장에서 중요한 역할을 맡게 될 수 있습니다. 승진, 새로운 직책, 공직 진출 등의 기회가 오고, 규율과 책임감이 강조되는 시기입니다.',
+      en: 'Social recognition and career advancement become possible. Promotions, important roles, or public service opportunities may arrive. Discipline and responsibility are rewarded.',
+    },
+    caution: {
+      ko: '과도한 스트레스와 압박이 건강에 영향을 줄 수 있습니다. 법적 문제나 권위자와의 충돌을 조심하고, 충분한 휴식을 반드시 취하세요.',
+      en: 'Heavy pressure and stress may affect your health. Be careful of legal issues or conflicts with authority figures. Make time for adequate rest.',
+    },
+  },
+  '인성': {
+    theme: { ko: '학문과 인덕의 시기', en: 'Learning & Benefactors' },
+    expect: {
+      ko: '공부나 자기계발에 좋은 시기입니다. 귀인의 도움을 받거나, 자격증 취득, 철학·종교 탐구 등이 활발해집니다. 어머니나 스승의 영향이 크게 작용하는 시기입니다.',
+      en: 'A favorable time for study and self-development. You may receive support from a benefactor, achieve certifications, or explore philosophy and spirituality. A mother figure or mentor\'s influence may be significant.',
+    },
+    caution: {
+      ko: '지나치게 의존하거나 게을러질 수 있습니다. 활동적인 면이 줄어들기 쉬우니, 꾸준히 움직이고 배운 것을 실천하는 것이 중요합니다.',
+      en: "There's a tendency toward over-dependence or inactivity. Keep moving and putting things into practice — don't just absorb knowledge, act on it.",
+    },
+  },
+};
+
 const POSITION_EN: Record<string, string> = {
   '년주': 'Year', '월주': 'Month', '일주': 'Day', '시주': 'Hour',
 };
 
 export default function AnalysisPanel({ result, baziData }: AnalysisPanelProps) {
   const { lang } = useLang();
-  const [activeTab, setActiveTab] = useState<TabKey>('sipsung');
+  const [activeTab, setActiveTab] = useState<TabKey>('dayun');
   const [viewMode, setViewMode] = useState<ViewMode>('my');
   const [modalContent, setModalContent] = useState<AnalysisModalContent | null>(null);
   const currentYear = new Date().getFullYear();
@@ -622,7 +684,23 @@ function openDaYunModal(
 
   const sections: AnalysisModalContent['sections'] = [];
 
-  // 1. 이 시기의 기운
+  // 0. 사람 언어 해석 (맨 위)
+  if (sipsung) {
+    const plain = DAYUN_PLAIN[sipsung.category];
+    if (plain) {
+      const theme = lang === 'en' ? plain.theme.en : plain.theme.ko;
+      const expectText = lang === 'en' ? plain.expect.en : plain.expect.ko;
+      const cautionText = lang === 'en' ? plain.caution.en : plain.caution.ko;
+      sections.push({
+        heading: lang === 'en' ? `This Period: ${theme}` : `이 시기: ${theme}`,
+        text: (lang === 'en'
+          ? `What to expect:\n${expectText}\n\nWhat to watch out for:\n${cautionText}`
+          : `기대할 수 있는 일:\n${expectText}\n\n주의할 점:\n${cautionText}`),
+      });
+    }
+  }
+
+  // 1. 기술적 상세 (아래)
   let energyText = '';
   if (lang === 'en') {
     energyText = `Stem ${stemEntry?.hangul || ''}(${stemChar}): ${stemEntry?.meaningEn || ''}\n\nBranch ${branchEntry?.hangul || ''}(${branchChar}): ${branchEntry?.meaningEn || ''}`;
@@ -635,7 +713,7 @@ function openDaYunModal(
       energyText += `\n\n일간(${dayStem.hanja})과의 관계: 이 대운은 "${sipsung.korean}" (${sipsung.category})의 기운을 가집니다.`;
     }
   }
-  sections.push({ heading: lang === 'en' ? 'Energy of this Cycle' : '이 시기의 기운', text: energyText });
+  sections.push({ heading: lang === 'en' ? 'Elemental Details' : '사주 상세 분석', text: energyText });
 
   // 2. 올해 운세 (현재 대운에만)
   if (isCurrent && currentLiuNian) {
@@ -692,24 +770,48 @@ function MyDaYun({ yunData, result, onOpen, lang, currentYear }: {
   lang: Lang;
   currentYear: number;
 }) {
+  const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
+
   const currentDaYun = yunData.daYun.find(dy => dy.startYear <= currentYear && currentYear <= dy.endYear);
+  const displayedDaYun = selectedIndex !== null
+    ? yunData.daYun.find(dy => dy.index === selectedIndex)
+    : currentDaYun;
+
+  const isDisplayedCurrent = displayedDaYun
+    ? displayedDaYun.startYear <= currentYear && currentYear <= displayedDaYun.endYear
+    : false;
+
+  const handleCardClick = (dy: DaYunInfo) => {
+    if (selectedIndex === dy.index) {
+      openDaYunModal(dy, result, onOpen, lang, currentYear);
+    } else {
+      setSelectedIndex(dy.index);
+    }
+  };
 
   return (
     <div>
-      {/* 현재 위치 요약 */}
-      {currentDaYun && (
+      {/* 현재/선택 위치 요약 */}
+      {displayedDaYun && (
         <div className={styles.yunCurrentInfo}>
           <div className={styles.yunCurrentInfoLabel}>
-            {lang === 'en' ? 'You are currently in' : '현재 나의 대운'}
+            {isDisplayedCurrent
+              ? (lang === 'en' ? 'You are currently in' : '현재 나의 대운')
+              : (lang === 'en' ? 'Selected cycle' : '선택한 대운')}
           </div>
           <div className={styles.yunCurrentInfoValue}>
-            {currentDaYun.ganZhi} {lang === 'en' ? 'Major Fortune Cycle' : '대운'}
+            {displayedDaYun.ganZhi} {lang === 'en' ? 'Major Fortune Cycle' : '대운'}
           </div>
           <div className={styles.yunCurrentInfoSub}>
             {lang === 'en'
-              ? `Age ${currentDaYun.startAge}–${currentDaYun.endAge} · ${currentDaYun.startYear}–${currentDaYun.endYear}`
-              : `${currentDaYun.startAge}~${currentDaYun.endAge}세 · ${currentDaYun.startYear}~${currentDaYun.endYear}년`}
+              ? `Age ${displayedDaYun.startAge}–${displayedDaYun.endAge} · ${displayedDaYun.startYear}–${displayedDaYun.endYear}`
+              : `${displayedDaYun.startAge}~${displayedDaYun.endAge}세 · ${displayedDaYun.startYear}~${displayedDaYun.endYear}년`}
           </div>
+          {selectedIndex !== null && (
+            <div className={styles.yunCurrentInfoHint}>
+              {lang === 'en' ? 'Click the card again to see full details' : '카드를 한 번 더 클릭하면 상세 정보를 볼 수 있습니다'}
+            </div>
+          )}
         </div>
       )}
 
@@ -718,16 +820,22 @@ function MyDaYun({ yunData, result, onOpen, lang, currentYear }: {
         {yunData.daYun.map(dy => {
           const isCurrent = dy.startYear <= currentYear && currentYear <= dy.endYear;
           const isPast = dy.endYear < currentYear;
+          const isSelected = selectedIndex === dy.index;
           return (
             <button
               key={dy.index}
-              className={`${styles.yunCard} ${isCurrent ? styles.yunCardCurrent : ''} ${isPast ? styles.yunCardPast : ''}`}
-              onClick={() => openDaYunModal(dy, result, onOpen, lang, currentYear)}
+              className={`${styles.yunCard} ${isCurrent ? styles.yunCardCurrent : ''} ${isPast && !isSelected ? styles.yunCardPast : ''} ${isSelected && !isCurrent ? styles.yunCardSelected : ''}`}
+              onClick={() => handleCardClick(dy)}
               type="button"
             >
               {isCurrent && (
                 <div className={styles.yunCurrentBadge}>
                   {lang === 'en' ? 'NOW' : '현재'}
+                </div>
+              )}
+              {isSelected && !isCurrent && (
+                <div className={styles.yunSelectedBadge}>
+                  {lang === 'en' ? '▶' : '▶'}
                 </div>
               )}
               <div className={styles.yunGanZhi}>{dy.ganZhi}</div>
@@ -742,7 +850,9 @@ function MyDaYun({ yunData, result, onOpen, lang, currentYear }: {
       </div>
 
       <p className={styles.yunHint}>
-        {lang === 'en' ? 'Click any cycle to see details and recommended actions.' : '각 대운 카드를 클릭하면 상세 정보와 추천 조치를 볼 수 있습니다.'}
+        {selectedIndex !== null
+          ? (lang === 'en' ? 'Click the highlighted card again to open details.' : '선택된 카드를 한 번 더 클릭하면 상세 정보가 열립니다.')
+          : (lang === 'en' ? 'Click any cycle to explore.' : '각 대운 카드를 클릭해 살펴보세요.')}
       </p>
     </div>
   );

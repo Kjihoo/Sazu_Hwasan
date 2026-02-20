@@ -403,6 +403,12 @@
   opacity: 0.5;
 }
 
+.yunCardSelected {
+  border-color: var(--color-accent-gold);
+  background: #fffbf0;
+  box-shadow: 0 2px 8px rgba(180, 140, 50, 0.2);
+}
+
 .yunCurrentBadge {
   position: absolute;
   top: -10px;
@@ -415,6 +421,26 @@
   padding: 2px 7px;
   border-radius: 10px;
   white-space: nowrap;
+}
+
+.yunSelectedBadge {
+  position: absolute;
+  top: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--color-accent-gold);
+  color: white;
+  font-size: 0.58rem;
+  font-weight: 700;
+  padding: 2px 7px;
+  border-radius: 10px;
+  white-space: nowrap;
+}
+
+.yunCurrentInfoHint {
+  font-size: 0.65rem;
+  color: var(--color-accent-gold);
+  margin-top: 6px;
 }
 
 .yunGanZhi {
