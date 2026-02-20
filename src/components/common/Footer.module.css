@@ -1,0 +1,8 @@
+.footer {
+  text-align: center;
+  padding: var(--spacing-lg) var(--spacing-md);
+  margin-top: auto;
+  color: var(--color-ink-light);
+  font-size: 0.8rem;
+  border-top: 1px solid var(--color-border-light);
+}

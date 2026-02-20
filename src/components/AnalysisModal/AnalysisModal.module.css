@@ -1,0 +1,121 @@
+.backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(44, 36, 32, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  animation: fadeIn 0.2s ease-out;
+  padding: var(--spacing-md);
+}
+
+.modal {
+  background: var(--color-bg-card);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-lg);
+  width: 100%;
+  max-width: 440px;
+  max-height: 85vh;
+  overflow-y: auto;
+  padding: var(--spacing-lg);
+  position: relative;
+  animation: scaleIn 0.2s ease-out;
+}
+
+.closeBtn {
+  position: absolute;
+  top: var(--spacing-sm);
+  right: var(--spacing-md);
+  font-size: 1.8rem;
+  color: var(--color-ink-light);
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 4px;
+  line-height: 1;
+  transition: color 0.2s;
+}
+
+.closeBtn:hover {
+  color: var(--color-accent-red);
+}
+
+.header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--spacing-sm);
+  padding-bottom: var(--spacing-md);
+  border-bottom: 1px solid var(--color-border-light);
+  margin-bottom: var(--spacing-md);
+}
+
+.headerTitle {
+  font-family: var(--font-hanja);
+  font-size: 1.5rem;
+  font-weight: 900;
+  color: var(--color-ink);
+  text-align: center;
+}
+
+.badge {
+  display: inline-block;
+  padding: 3px 14px;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  background: var(--color-ink);
+  color: var(--color-bg-card);
+}
+
+.section {
+  margin-bottom: var(--spacing-md);
+  padding-bottom: var(--spacing-md);
+  border-bottom: 1px solid var(--color-border-light);
+}
+
+.section:last-child {
+  border-bottom: none;
+  margin-bottom: 0;
+  padding-bottom: 0;
+}
+
+.sectionTitle {
+  font-family: var(--font-hanja);
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--color-accent-red);
+  margin-bottom: var(--spacing-sm);
+}
+
+.sectionText {
+  font-size: 0.9rem;
+  color: var(--color-ink);
+  line-height: 1.7;
+}
+
+.sectionText p {
+  margin-bottom: var(--spacing-xs);
+}
+
+.sectionText p:last-child {
+  margin-bottom: 0;
+}
+
+@media (max-width: 480px) {
+  .backdrop {
+    align-items: flex-end;
+    padding: 0;
+  }
+
+  .modal {
+    max-height: 90vh;
+    border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+    animation: slideUp 0.3s ease-out;
+  }
+
+  .headerTitle {
+    font-size: 1.2rem;
+  }
+}

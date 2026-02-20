@@ -1,0 +1,89 @@
+.container {
+  max-width: 600px;
+  margin: var(--spacing-xl) auto;
+  padding: 0 var(--spacing-md);
+  animation: fadeIn 0.3s ease-out;
+}
+
+.title {
+  text-align: center;
+  font-family: var(--font-hanja);
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: var(--color-ink);
+  margin-bottom: var(--spacing-lg);
+}
+
+.titleHanja {
+  font-size: 0.9rem;
+  color: var(--color-ink-light);
+  margin-left: var(--spacing-xs);
+}
+
+.pillarsRow {
+  display: flex;
+  justify-content: center;
+  gap: var(--spacing-sm);
+}
+
+.unknownPillar {
+  background: var(--color-bg-card);
+  border: 1px dashed var(--color-border-light);
+  border-radius: var(--radius-md);
+  padding: var(--spacing-sm) var(--spacing-sm) var(--spacing-md);
+  text-align: center;
+  min-width: 90px;
+  opacity: 0.5;
+}
+
+.unknownLabel {
+  font-size: 0.8rem;
+  color: var(--color-ink-light);
+  margin-bottom: var(--spacing-sm);
+}
+
+.unknownLabel span {
+  font-family: var(--font-hanja);
+  font-size: 0.7rem;
+  color: var(--color-border);
+}
+
+.unknownContent {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--spacing-sm);
+  padding: var(--spacing-lg) 0;
+}
+
+.unknownChar {
+  font-family: var(--font-hanja);
+  font-size: 2.5rem;
+  color: var(--color-border-light);
+}
+
+.unknownText {
+  font-size: 0.75rem;
+  color: var(--color-border);
+}
+
+.hint {
+  text-align: center;
+  margin-top: var(--spacing-md);
+  font-size: 0.8rem;
+  color: var(--color-border);
+}
+
+@media (max-width: 480px) {
+  .pillarsRow {
+    gap: var(--spacing-xs);
+  }
+
+  .unknownPillar {
+    min-width: 72px;
+  }
+
+  .unknownChar {
+    font-size: 2rem;
+  }
+}

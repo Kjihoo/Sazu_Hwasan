@@ -1,0 +1,27 @@
+.header {
+  text-align: center;
+  padding: var(--spacing-xl) var(--spacing-md);
+  border-bottom: 2px solid var(--color-border-light);
+  background: linear-gradient(180deg, var(--color-bg-card) 0%, var(--color-bg) 100%);
+}
+
+.title {
+  font-family: var(--font-hanja);
+  font-size: 2.2rem;
+  font-weight: 900;
+  color: var(--color-ink);
+  letter-spacing: 0.15em;
+  margin-bottom: var(--spacing-xs);
+}
+
+.subtitle {
+  font-size: 0.95rem;
+  color: var(--color-ink-light);
+  font-weight: 300;
+}
+
+@media (max-width: 480px) {
+  .title {
+    font-size: 1.6rem;
+  }
+}

@@ -1,0 +1,126 @@
+.form {
+  max-width: 480px;
+  margin: var(--spacing-xl) auto;
+  padding: var(--spacing-lg);
+  background: var(--color-bg-card);
+  border: 1px solid var(--color-border-light);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+}
+
+.section {
+  margin-bottom: var(--spacing-lg);
+}
+
+.label {
+  display: block;
+  font-weight: 500;
+  color: var(--color-ink);
+  margin-bottom: var(--spacing-sm);
+  font-size: 0.95rem;
+}
+
+.dateRow {
+  display: flex;
+  gap: var(--spacing-sm);
+}
+
+.select {
+  flex: 1;
+  padding: 10px 12px;
+  border: 1px solid var(--color-border-light);
+  border-radius: var(--radius-sm);
+  background: white;
+  color: var(--color-ink);
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+  cursor: pointer;
+}
+
+.select:focus {
+  outline: 2px solid var(--color-accent-gold);
+  outline-offset: -1px;
+}
+
+.timeSelect {
+  width: 100%;
+  margin-bottom: var(--spacing-sm);
+}
+
+.checkboxLabel {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  font-size: 0.85rem;
+  color: var(--color-ink-light);
+  cursor: pointer;
+}
+
+.checkboxLabel input[type="checkbox"] {
+  accent-color: var(--color-accent-gold);
+}
+
+.genderRow {
+  display: flex;
+  gap: var(--spacing-sm);
+}
+
+.genderOption {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-xs);
+  padding: 10px;
+  border: 1px solid var(--color-border-light);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  font-size: 0.95rem;
+  transition: all 0.2s;
+}
+
+.genderOption input[type="radio"] {
+  display: none;
+}
+
+.genderActive {
+  background: var(--color-ink);
+  color: var(--color-bg-card);
+  border-color: var(--color-ink);
+}
+
+.submitBtn {
+  width: 100%;
+  padding: 14px;
+  background: var(--color-ink);
+  color: var(--color-bg-card);
+  border: none;
+  border-radius: var(--radius-md);
+  font-family: var(--font-hanja);
+  font-size: 1.1rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.submitBtn:hover {
+  background: var(--color-accent-red);
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-md);
+}
+
+.submitBtn:active {
+  transform: translateY(0);
+}
+
+@media (max-width: 480px) {
+  .form {
+    margin: var(--spacing-md);
+    padding: var(--spacing-md);
+  }
+
+  .dateRow {
+    flex-direction: column;
+  }
+}

@@ -1,0 +1,50 @@
+:root {
+  /* 전통 한국 색상 팔레트 */
+  --color-bg: #f5f0e8;
+  --color-bg-card: #faf6ef;
+  --color-ink: #2c2420;
+  --color-ink-light: #5c534a;
+  --color-accent-gold: #c8a951;
+  --color-accent-red: #b33a3a;
+  --color-border: #8b7d6b;
+  --color-border-light: #c4b8a8;
+
+  /* 오행 색상 */
+  --ohang-wood: #2d8a4e;
+  --ohang-wood-bg: #e8f5e9;
+  --ohang-wood-text: #1b5e20;
+  --ohang-fire: #c62828;
+  --ohang-fire-bg: #ffebee;
+  --ohang-fire-text: #b71c1c;
+  --ohang-earth: #a68b5b;
+  --ohang-earth-bg: #fff8e1;
+  --ohang-earth-text: #795548;
+  --ohang-metal: #78909c;
+  --ohang-metal-bg: #f5f5f5;
+  --ohang-metal-text: #424242;
+  --ohang-water: #1565c0;
+  --ohang-water-bg: #e3f2fd;
+  --ohang-water-text: #0d47a1;
+
+  /* 타이포그래피 */
+  --font-hanja: 'Noto Serif KR', 'Batang', serif;
+  --font-body: 'Noto Sans KR', 'Malgun Gothic', sans-serif;
+
+  /* 간격 */
+  --spacing-xs: 4px;
+  --spacing-sm: 8px;
+  --spacing-md: 16px;
+  --spacing-lg: 24px;
+  --spacing-xl: 32px;
+  --spacing-xxl: 48px;
+
+  /* 둥글기 */
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+
+  /* 그림자 */
+  --shadow-sm: 0 1px 3px rgba(44, 36, 32, 0.12);
+  --shadow-md: 0 4px 12px rgba(44, 36, 32, 0.15);
+  --shadow-lg: 0 8px 24px rgba(44, 36, 32, 0.2);
+}

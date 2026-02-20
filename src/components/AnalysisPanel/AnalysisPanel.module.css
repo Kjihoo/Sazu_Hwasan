@@ -1,0 +1,347 @@
+.container {
+  max-width: 600px;
+  margin: var(--spacing-lg) auto;
+  padding: 0 var(--spacing-md);
+  animation: slideUp 0.5s ease-out 0.5s both;
+}
+
+/* 탭 */
+.tabs {
+  display: flex;
+  gap: 2px;
+  background: var(--color-border-light);
+  border-radius: var(--radius-md) var(--radius-md) 0 0;
+  overflow: hidden;
+}
+
+.tab {
+  flex: 1;
+  padding: 12px 8px;
+  background: var(--color-bg);
+  color: var(--color-ink-light);
+  font-size: 0.85rem;
+  font-weight: 500;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.2s;
+  border: none;
+}
+
+.tab:hover {
+  background: var(--color-bg-card);
+}
+
+.tabActive {
+  background: var(--color-bg-card);
+  color: var(--color-ink);
+  font-weight: 700;
+  box-shadow: inset 0 -2px 0 var(--color-accent-red);
+}
+
+.tabHanja {
+  display: block;
+  font-family: var(--font-hanja);
+  font-size: 0.65rem;
+  color: var(--color-border);
+  margin-top: 2px;
+}
+
+/* 듀얼 버튼 */
+.modeToggle {
+  display: flex;
+  gap: 0;
+  background: var(--color-bg-card);
+  padding: var(--spacing-sm) var(--spacing-md);
+  border-left: 1px solid var(--color-border-light);
+  border-right: 1px solid var(--color-border-light);
+}
+
+.modeBtn {
+  flex: 1;
+  padding: 10px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  border: 1px solid var(--color-border-light);
+  background: var(--color-bg);
+  color: var(--color-ink-light);
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.modeBtn:first-child {
+  border-radius: var(--radius-sm) 0 0 var(--radius-sm);
+}
+
+.modeBtn:last-child {
+  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+  border-left: none;
+}
+
+.modeBtnActive {
+  background: var(--color-ink);
+  color: var(--color-bg-card);
+  border-color: var(--color-ink);
+  font-weight: 700;
+}
+
+/* 콘텐츠 */
+.content {
+  background: var(--color-bg-card);
+  border: 1px solid var(--color-border-light);
+  border-top: none;
+  border-radius: 0 0 var(--radius-md) var(--radius-md);
+  padding: var(--spacing-md);
+  min-height: 200px;
+}
+
+/* 정보 박스 (X란?) */
+.infoBox {
+  padding: var(--spacing-sm);
+}
+
+.infoPara {
+  font-size: 0.88rem;
+  line-height: 1.7;
+  color: var(--color-ink);
+  margin-bottom: var(--spacing-xs);
+}
+
+.listItem {
+  font-size: 0.85rem;
+  line-height: 1.7;
+  color: var(--color-ink);
+  padding-left: var(--spacing-sm);
+}
+
+/* 결과 그리드 (십성/12운성) */
+.resultGrid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--spacing-sm);
+}
+
+.resultCard {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.resultCardHeader {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--color-ink-light);
+  text-align: center;
+  padding: var(--spacing-xs);
+  background: var(--color-bg);
+  border-radius: var(--radius-sm);
+}
+
+.resultItem {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  padding: 6px 4px;
+  border: 1px solid var(--color-border-light);
+  border-radius: var(--radius-sm);
+  background: white;
+  cursor: pointer;
+  transition: all 0.2s;
+  width: 100%;
+}
+
+.resultItem:hover {
+  border-color: var(--color-accent-gold);
+  box-shadow: var(--shadow-sm);
+}
+
+.resultItemExpanded {
+  border-color: var(--color-accent-red);
+  background: var(--color-bg);
+}
+
+.resultLabel {
+  font-size: 0.6rem;
+  color: var(--color-border);
+}
+
+.resultValue {
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--color-ink);
+}
+
+/* 십성 카테고리 색상 */
+.cat_비겁 { color: var(--ohang-wood-text); }
+.cat_식상 { color: var(--ohang-fire-text); }
+.cat_재성 { color: var(--ohang-earth-text); }
+.cat_관성 { color: var(--ohang-metal-text); }
+.cat_인성 { color: var(--ohang-water-text); }
+
+/* 12운성 카드 */
+.unsungCard {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  padding: var(--spacing-sm);
+  border: 1px solid var(--color-border-light);
+  border-radius: var(--radius-sm);
+  background: white;
+  cursor: pointer;
+  transition: all 0.2s;
+  text-align: center;
+}
+
+.unsungCard:hover {
+  border-color: var(--color-accent-gold);
+  box-shadow: var(--shadow-sm);
+}
+
+.unsungHeader {
+  font-size: 0.7rem;
+  color: var(--color-ink-light);
+  font-weight: 500;
+}
+
+.unsungValue {
+  font-family: var(--font-hanja);
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--color-ink);
+}
+
+.unsungHanja {
+  font-family: var(--font-hanja);
+  font-size: 0.7rem;
+  color: var(--color-border);
+}
+
+/* 펼침 콘텐츠 */
+.expandedContent {
+  padding: var(--spacing-sm);
+  background: var(--color-bg);
+  border-radius: var(--radius-sm);
+  margin-top: 4px;
+  font-size: 0.82rem;
+  line-height: 1.6;
+  color: var(--color-ink);
+  text-align: left;
+  grid-column: 1 / -1;
+}
+
+.expandedContent p {
+  margin-bottom: var(--spacing-xs);
+}
+
+.expandedReason {
+  font-size: 0.8rem;
+  color: var(--color-accent-red);
+  background: var(--ohang-fire-bg);
+  padding: var(--spacing-sm);
+  border-radius: var(--radius-sm);
+  border-left: 3px solid var(--color-accent-red);
+  margin-bottom: var(--spacing-sm) !important;
+}
+
+.expandedCategory {
+  font-size: 0.78rem;
+  color: var(--color-ink-light);
+  padding-bottom: var(--spacing-xs);
+  border-bottom: 1px solid var(--color-border-light);
+  margin-bottom: var(--spacing-xs) !important;
+}
+
+.expandedPersonality {
+  color: var(--color-ink-light);
+  font-style: italic;
+}
+
+/* 형충회합/신살 아이템 */
+.interactionGroup {
+  margin-bottom: var(--spacing-md);
+}
+
+.groupTitle {
+  font-family: var(--font-hanja);
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: var(--color-ink);
+  margin-bottom: var(--spacing-sm);
+  padding-bottom: var(--spacing-xs);
+  border-bottom: 1px solid var(--color-border-light);
+}
+
+.interactionItem {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  width: 100%;
+  padding: 10px var(--spacing-sm);
+  border: 1px solid var(--color-border-light);
+  border-radius: var(--radius-sm);
+  background: white;
+  cursor: pointer;
+  transition: all 0.2s;
+  margin-bottom: 4px;
+  text-align: left;
+}
+
+.interactionItem:hover {
+  box-shadow: var(--shadow-sm);
+}
+
+.interactionGood {
+  border-left: 3px solid var(--ohang-wood);
+}
+
+.interactionBad {
+  border-left: 3px solid var(--color-accent-red);
+}
+
+.interactionType {
+  font-weight: 700;
+  font-size: 0.85rem;
+  min-width: 52px;
+}
+
+.interactionDetail {
+  font-size: 0.82rem;
+  color: var(--color-ink-light);
+}
+
+.emptyState {
+  text-align: center;
+  padding: var(--spacing-xl);
+  color: var(--color-border);
+  font-size: 0.9rem;
+}
+
+/* 반응형 */
+@media (max-width: 480px) {
+  .tabs {
+    gap: 1px;
+  }
+
+  .tab {
+    padding: 10px 4px;
+    font-size: 0.78rem;
+  }
+
+  .tabHanja {
+    display: none;
+  }
+
+  .resultGrid {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 4px;
+  }
+
+  .resultValue {
+    font-size: 0.72rem;
+  }
+
+  .unsungValue {
+    font-size: 0.95rem;
+  }
+}
