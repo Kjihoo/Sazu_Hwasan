@@ -1,4 +1,5 @@
 import type { SajuResult, CharInfo } from '../../types/saju';
+import { useLang } from '../../context/LangContext';
 import PillarCard from './PillarCard';
 import styles from './PillarDisplay.module.css';
 
@@ -8,6 +9,7 @@ interface PillarDisplayProps {
 }
 
 export default function PillarDisplay({ result, onCharClick }: PillarDisplayProps) {
+  const { lang } = useLang();
   const pillars = [
     result.hourPillar,
     result.dayPillar,
@@ -18,17 +20,23 @@ export default function PillarDisplay({ result, onCharClick }: PillarDisplayProp
   return (
     <section className={styles.container}>
       <h2 className={styles.title}>
-        사주팔자 <span className={styles.titleHanja}>四柱八字</span>
+        {lang === 'en' ? 'Four Pillars of Destiny' : '사주팔자'}{' '}
+        <span className={styles.titleHanja}>四柱八字</span>
       </h2>
       <div className={styles.pillarsRow}>
         {pillars.map((pillar, i) => {
           if (!pillar) {
             return (
               <div key="unknown" className={styles.unknownPillar}>
-                <div className={styles.unknownLabel}>시주<br /><span>時柱</span></div>
+                <div className={styles.unknownLabel}>
+                  {lang === 'en' ? 'Hour' : '시주'}<br />
+                  <span>時柱</span>
+                </div>
                 <div className={styles.unknownContent}>
                   <span className={styles.unknownChar}>?</span>
-                  <span className={styles.unknownText}>시간 미입력</span>
+                  <span className={styles.unknownText}>
+                    {lang === 'en' ? 'Time Unknown' : '시간 미입력'}
+                  </span>
                 </div>
               </div>
             );
@@ -44,7 +52,9 @@ export default function PillarDisplay({ result, onCharClick }: PillarDisplayProp
         })}
       </div>
       <p className={styles.hint}>
-        글자를 클릭하면 자세한 설명을 볼 수 있습니다
+        {lang === 'en'
+          ? 'Click a character for details'
+          : '글자를 클릭하면 자세한 설명을 볼 수 있습니다'}
       </p>
     </section>
   );

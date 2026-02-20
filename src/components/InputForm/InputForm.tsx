@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import type { BirthInput } from '../../types/saju';
 import { SIJI_DATA } from '../../data/siji';
+import { useLang } from '../../context/LangContext';
 import styles from './InputForm.module.css';
 
 interface InputFormProps {
@@ -16,6 +17,7 @@ function getDaysInMonth(year: number, month: number): number {
 }
 
 export default function InputForm({ onSubmit }: InputFormProps) {
+  const { lang } = useLang();
   const [calendarType, setCalendarType] = useState<'solar' | 'lunar'>('solar');
   const [year, setYear] = useState(1990);
   const [month, setMonth] = useState(1);
@@ -54,7 +56,9 @@ export default function InputForm({ onSubmit }: InputFormProps) {
   return (
     <form className={styles.form} onSubmit={handleSubmit}>
       <div className={styles.section}>
-        <label className={styles.label}>양력 / 음력</label>
+        <label className={styles.label}>
+          {lang === 'en' ? 'Solar / Lunar Calendar' : '양력 / 음력'}
+        </label>
         <div className={styles.genderRow}>
           <label className={`${styles.genderOption} ${calendarType === 'solar' ? styles.genderActive : ''}`}>
             <input
@@ -64,7 +68,7 @@ export default function InputForm({ onSubmit }: InputFormProps) {
               checked={calendarType === 'solar'}
               onChange={() => handleCalendarChange('solar')}
             />
-            양력
+            {lang === 'en' ? 'Solar' : '양력'}
           </label>
           <label className={`${styles.genderOption} ${calendarType === 'lunar' ? styles.genderActive : ''}`}>
             <input
@@ -74,7 +78,7 @@ export default function InputForm({ onSubmit }: InputFormProps) {
               checked={calendarType === 'lunar'}
               onChange={() => handleCalendarChange('lunar')}
             />
-            음력
+            {lang === 'en' ? 'Lunar' : '음력'}
           </label>
         </div>
         {calendarType === 'lunar' && (
@@ -84,13 +88,15 @@ export default function InputForm({ onSubmit }: InputFormProps) {
               checked={isLeapMonth}
               onChange={e => setIsLeapMonth(e.target.checked)}
             />
-            윤달
+            {lang === 'en' ? 'Leap Month' : '윤달'}
           </label>
         )}
       </div>
 
       <div className={styles.section}>
-        <label className={styles.label}>생년월일</label>
+        <label className={styles.label}>
+          {lang === 'en' ? 'Date of Birth' : '생년월일'}
+        </label>
         <div className={styles.dateRow}>
           <select
             className={styles.select}
@@ -98,7 +104,7 @@ export default function InputForm({ onSubmit }: InputFormProps) {
             onChange={e => setYear(Number(e.target.value))}
           >
             {years.map(y => (
-              <option key={y} value={y}>{y}년</option>
+              <option key={y} value={y}>{lang === 'en' ? y : `${y}년`}</option>
             ))}
           </select>
           <select
@@ -110,7 +116,7 @@ export default function InputForm({ onSubmit }: InputFormProps) {
             }}
           >
             {months.map(m => (
-              <option key={m} value={m}>{m}월</option>
+              <option key={m} value={m}>{lang === 'en' ? m : `${m}월`}</option>
             ))}
           </select>
           <select
@@ -119,14 +125,16 @@ export default function InputForm({ onSubmit }: InputFormProps) {
             onChange={e => setDay(Number(e.target.value))}
           >
             {days.map(d => (
-              <option key={d} value={d}>{d}일</option>
+              <option key={d} value={d}>{lang === 'en' ? d : `${d}일`}</option>
             ))}
           </select>
         </div>
       </div>
 
       <div className={styles.section}>
-        <label className={styles.label}>태어난 시간</label>
+        <label className={styles.label}>
+          {lang === 'en' ? 'Birth Hour' : '태어난 시간'}
+        </label>
         <select
           className={`${styles.select} ${styles.timeSelect}`}
           value={sijiIndex}
@@ -143,12 +151,14 @@ export default function InputForm({ onSubmit }: InputFormProps) {
             checked={unknownTime}
             onChange={e => setUnknownTime(e.target.checked)}
           />
-          태어난 시간을 모릅니다
+          {lang === 'en' ? 'Birth time unknown' : '태어난 시간을 모릅니다'}
         </label>
       </div>
 
       <div className={styles.section}>
-        <label className={styles.label}>성별</label>
+        <label className={styles.label}>
+          {lang === 'en' ? 'Gender' : '성별'}
+        </label>
         <div className={styles.genderRow}>
           <label className={`${styles.genderOption} ${gender === 'male' ? styles.genderActive : ''}`}>
             <input
@@ -158,7 +168,7 @@ export default function InputForm({ onSubmit }: InputFormProps) {
               checked={gender === 'male'}
               onChange={() => setGender('male')}
             />
-            남
+            {lang === 'en' ? 'Male' : '남'}
           </label>
           <label className={`${styles.genderOption} ${gender === 'female' ? styles.genderActive : ''}`}>
             <input
@@ -168,13 +178,13 @@ export default function InputForm({ onSubmit }: InputFormProps) {
               checked={gender === 'female'}
               onChange={() => setGender('female')}
             />
-            여
+            {lang === 'en' ? 'Female' : '여'}
           </label>
         </div>
       </div>
 
       <button type="submit" className={styles.submitBtn}>
-        사주 보기
+        {lang === 'en' ? 'Read My Chart' : '사주 보기'}
       </button>
     </form>
   );

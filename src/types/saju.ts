@@ -61,6 +61,9 @@ export interface CheonganEntry {
   meaning: string;
   symbolism: string;
   personality: string;
+  meaningEn: string;
+  symbolismEn: string;
+  personalityEn: string;
 }
 
 export interface JijiEntry {
@@ -69,9 +72,12 @@ export interface JijiEntry {
   ohang: OhangType;
   polarity: Polarity;
   animal: string;
+  animalEn: string;
   timeRange: string;
   meaning: string;
   symbolism: string;
+  meaningEn: string;
+  symbolismEn: string;
 }
 
 export interface OhangEntry {
@@ -81,10 +87,13 @@ export interface OhangEntry {
   bgColor: string;
   textColor: string;
   meaning: string;
+  meaningEn: string;
   generates: OhangType;
   overcomes: OhangType;
   season: string;
+  seasonEn: string;
   direction: string;
+  directionEn: string;
 }
 
 export interface SijiEntry {

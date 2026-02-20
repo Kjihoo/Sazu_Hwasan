@@ -1,6 +1,7 @@
 import { useEffect, useRef } from 'react';
 import type { CharInfo, BirthInput, SajuResult } from '../../types/saju';
 import { OHANG_DATA } from '../../data/ohang';
+import { useLang } from '../../context/LangContext';
 import { buildInterpretation } from '../../utils/interpretationBuilder';
 import ElementBadge from '../ElementBadge/ElementBadge';
 import styles from './MemoModal.module.css';
@@ -14,6 +15,7 @@ interface MemoModalProps {
 }
 
 export default function MemoModal({ isOpen, charInfo, birthInput, sajuResult, onClose }: MemoModalProps) {
+  const { lang } = useLang();
   const modalRef = useRef<HTMLDivElement>(null);
   const closeRef = useRef<HTMLButtonElement>(null);
 
@@ -33,7 +35,7 @@ export default function MemoModal({ isOpen, charInfo, birthInput, sajuResult, on
 
   if (!isOpen || !charInfo || !birthInput || !sajuResult) return null;
 
-  const interp = buildInterpretation(charInfo, birthInput, sajuResult);
+  const interp = buildInterpretation(charInfo, birthInput, sajuResult, lang);
   const ohangEntry = OHANG_DATA[charInfo.ohang];
 
   const handleBackdropClick = (e: React.MouseEvent) => {
@@ -54,24 +56,32 @@ export default function MemoModal({ isOpen, charInfo, birthInput, sajuResult, on
           <span className={styles.headerHangul}>{charInfo.hangul}</span>
           <ElementBadge ohang={charInfo.ohang} polarity={charInfo.polarity} />
           <span className={styles.headerPosition}>
-            {charInfo.pillarPosition} · {charInfo.type === 'cheongan' ? '천간' : '지지'}
+            {charInfo.pillarPosition} · {charInfo.type === 'cheongan'
+              ? (lang === 'en' ? 'Stem' : '천간')
+              : (lang === 'en' ? 'Branch' : '지지')}
           </span>
         </div>
 
         <div className={styles.section}>
-          <h3 className={styles.sectionTitle}>용어 설명</h3>
+          <h3 className={styles.sectionTitle}>
+            {lang === 'en' ? 'Description' : '용어 설명'}
+          </h3>
           <p className={styles.sectionText}>{interp.termExplanation}</p>
           <p className={styles.sectionText}>{interp.symbolism}</p>
         </div>
 
         <div className={styles.section}>
-          <h3 className={styles.sectionTitle}>왜 이 글자가 나왔나요?</h3>
+          <h3 className={styles.sectionTitle}>
+            {lang === 'en' ? 'Why this character?' : '왜 이 글자가 나왔나요?'}
+          </h3>
           <p className={styles.sectionText}>{interp.contextExplanation}</p>
           <p className={styles.sectionSubtext}>{interp.pillarExplanation}</p>
         </div>
 
         <div className={styles.section}>
-          <h3 className={styles.sectionTitle}>오행 정보</h3>
+          <h3 className={styles.sectionTitle}>
+            {lang === 'en' ? 'Element Info' : '오행 정보'}
+          </h3>
           <p className={styles.sectionText}>{interp.ohangExplanation}</p>
         </div>
       </div>

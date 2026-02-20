@@ -83,34 +83,48 @@ export const PA: [string, string][] = [
 ];
 
 // 형충회합 설명 텍스트
-export const INTERACTION_DESC: Record<InteractionType, { title: string; meaning: string }> = {
+export const INTERACTION_DESC: Record<InteractionType, { title: string; meaning: string; titleEn: string; meaningEn: string }> = {
   '삼합': {
     title: '삼합 (三合)',
     meaning: '세 개의 지지가 모여 하나의 강한 오행을 이루는 것입니다. 삼합이 있으면 해당 오행의 기운이 매우 강해집니다. 인연과 협력의 의미가 있습니다.',
+    titleEn: 'Triple Harmony (三合)',
+    meaningEn: 'Three Earthly Branches unite to form a powerful single element. When present, the energy of that element becomes very strong. It signifies destiny connections and cooperation.',
   },
   '육합': {
     title: '육합 (六合)',
     meaning: '두 개의 지지가 서로 끌려 합치는 것입니다. 부부의 인연처럼 자연스러운 결합을 의미하며, 화합과 조화의 기운입니다.',
+    titleEn: 'Six Harmonies (六合)',
+    meaningEn: 'Two Earthly Branches attract and combine naturally — like a destined union. It represents harmony, cooperation, and mutual affinity.',
   },
   '방합': {
     title: '방합 (方合)',
     meaning: '같은 방위(동서남북)에 속하는 세 지지가 모이는 것입니다. 해당 계절·방위의 기운이 극도로 강해집니다.',
+    titleEn: 'Directional Harmony (方合)',
+    meaningEn: 'Three Branches of the same cardinal direction (East/West/South/North) unite. The energy of that season and direction becomes extremely powerful.',
   },
   '충': {
     title: '충 (沖)',
     meaning: '서로 반대 방위에 있는 두 지지가 부딪치는 것입니다. 변화, 이동, 갈등, 이별의 의미가 있습니다. 반드시 나쁜 것은 아니며 정체된 상황을 깨뜨리는 역할도 합니다.',
+    titleEn: 'Clash (沖)',
+    meaningEn: 'Two Branches in opposite directions collide. It brings change, movement, conflict, and separation. Not always negative — it can break stagnation and force transformation.',
   },
   '형': {
     title: '형 (刑)',
     meaning: '지지 사이에 서로 해치는 관계입니다. 법적 문제, 형벌, 건강 문제와 관련될 수 있습니다. 스트레스나 갈등의 기운이지만, 법조인·의료인에게는 직업적 적성이 될 수 있습니다.',
+    titleEn: 'Punishment (刑)',
+    meaningEn: 'Branches that harm each other. May relate to legal issues, penalties, or health concerns. Stressful energy, but can be a professional asset for those in law or medicine.',
   },
   '해': {
     title: '해 (害)',
     meaning: '육합하려는 것을 방해하는 관계입니다. 은근한 갈등, 시기, 질투를 의미합니다. 대놓고 부딪치지 않지만 내면적으로 불편한 관계입니다.',
+    titleEn: 'Harm (害)',
+    meaningEn: 'A relationship that disrupts natural harmony. Represents subtle conflict, jealousy, and envy. Not openly hostile, but internally uncomfortable.',
   },
   '파': {
     title: '파 (破)',
     meaning: '기존 질서를 깨뜨리는 관계입니다. 충(沖)보다 약하지만 서서히 깨져나가는 기운입니다. 불안정과 예상치 못한 변화를 의미합니다.',
+    titleEn: 'Break (破)',
+    meaningEn: 'A relationship that disrupts established order. Weaker than a Clash but erodes gradually. Represents instability and unexpected change.',
   },
 };
 
@@ -127,3 +141,17 @@ export const HYUNGCHUNG_GENERAL_DESC = `형충회합(刑沖會合)은 사주의 
 • 파(破): 깨뜨리는 관계 (불안정)
 
 합이 많으면 인간관계가 좋고 안정적이며, 충·형이 많으면 변화가 많고 역동적입니다.`;
+
+export const HYUNGCHUNG_GENERAL_DESC_EN = `Branch Interactions (刑沖會合) analyze the relationships between the Earthly Branches in your chart.
+
+• Harmony (合): Branches that unite and create balance
+  - Six Harmonies: Two branches unite (e.g., 子+丑 = Earth)
+  - Triple Harmony: Three branches unite (e.g., 申+子+辰 = Water)
+  - Directional: Three same-direction branches (e.g., 寅+卯+辰 = Wood)
+
+• Clash (沖): Branches that collide (change, movement)
+• Punishment (刑): Branches that harm each other (conflict, stress)
+• Harm (害): Subtle interference (jealousy, envy)
+• Break (破): Gradual disruption (instability)
+
+Many harmonies indicate good relationships and stability; many clashes and punishments indicate dynamic, eventful change.`;

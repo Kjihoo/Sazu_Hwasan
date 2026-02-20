@@ -20,48 +20,40 @@
   font-weight: 300;
 }
 
-.nav {
+.langToggle {
   display: flex;
   justify-content: center;
-  gap: var(--spacing-xs);
+  gap: 4px;
   margin-top: var(--spacing-md);
 }
 
-.navBtn {
-  padding: var(--spacing-xs) var(--spacing-lg);
+.langBtn {
+  padding: 4px 14px;
   background: transparent;
   color: var(--color-ink-light);
   border: 1px solid var(--color-border-light);
   border-radius: var(--radius-sm);
   font-family: var(--font-body);
-  font-size: 0.9rem;
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
   cursor: pointer;
   transition: background 0.2s, color 0.2s, border-color 0.2s;
 }
 
-.navBtn:hover {
+.langBtn:hover {
   border-color: var(--color-border);
   color: var(--color-ink);
 }
 
-.navActive {
+.langBtnActive {
   background: var(--color-ink);
   color: var(--color-bg);
   border-color: var(--color-ink);
 }
 
-.navActive:hover {
-  background: var(--color-ink);
-  color: var(--color-bg);
-}
-
 @media (max-width: 480px) {
   .title {
     font-size: 1.6rem;
-  }
-
-  .navBtn {
-    font-size: 0.82rem;
-    padding: var(--spacing-xs) var(--spacing-md);
   }
 }
