@@ -69,90 +69,6 @@ Annual Fortune (歲運) is the energy of each passing year — like waves riding
 
 Click any cycle card to explore the detailed energy and recommended actions for that period.`;
 
-const DAYUN_ADVICE: Record<string, { ko: string; en: string }> = {
-  '비겁': {
-    ko: '• 독립심과 경쟁심이 강해지는 시기입니다.\n• 자기 사업이나 독립적인 활동에 유리합니다.\n• 형제·동료와의 경쟁이 생길 수 있으니 협력도 병행하세요.\n• 나의 영역을 구축하고 자기 가치를 높이세요.',
-    en: '• A period of independence and competitive drive.\n• Favorable for self-employment or independent ventures.\n• Competition with siblings or peers may arise — balance with cooperation.\n• Focus on building your personal brand and self-worth.',
-  },
-  '식상': {
-    ko: '• 표현력과 창의성이 풍부해지는 시기입니다.\n• 예술, 글쓰기, 강의, 사업 아이디어 등 표현 활동에 유리합니다.\n• 새로운 도전과 변화를 적극적으로 추구하세요.\n• 자신의 재능을 세상에 드러내는 시기입니다.',
-    en: '• A period of rich expression and creativity.\n• Favorable for arts, writing, teaching, and entrepreneurship.\n• Embrace new challenges and changes.\n• This is your time to share your talents with the world.',
-  },
-  '재성': {
-    ko: '• 재물운과 현실적 성취의 시기입니다.\n• 재테크, 사업 확장, 직장 성과에 집중하기 좋습니다.\n• 부지런히 노력하면 결실을 맺기 쉬운 시기입니다.\n• 건강과 지출 관리도 함께 신경 쓰세요.',
-    en: '• A period of wealth and tangible achievement.\n• Good for investment, business growth, and career performance.\n• Diligent effort will bear fruit during this cycle.\n• Manage spending wisely and take care of your health.',
-  },
-  '관성': {
-    ko: '• 명예와 직업운이 강해지는 시기입니다.\n• 승진, 취업, 공직 진출, 사회적 인정에 유리합니다.\n• 규율과 책임감을 발휘할 기회가 옵니다.\n• 법적 문제와 건강에 주의하고, 권위자와의 관계를 잘 관리하세요.',
-    en: '• A period of heightened career and prestige.\n• Favorable for promotions, job offers, and social recognition.\n• Opportunities to demonstrate discipline and responsibility will arise.\n• Be mindful of legal matters, health, and relationships with authority figures.',
-  },
-  '인성': {
-    ko: '• 학문, 지혜, 정신적 성장의 시기입니다.\n• 공부, 자격증 취득, 종교·철학 탐구에 유리합니다.\n• 어머니 혹은 스승의 도움을 받을 수 있습니다.\n• 과한 의존이나 게으름을 경계하고, 충분한 휴식도 취하세요.',
-    en: '• A period of scholarship, wisdom, and spiritual growth.\n• Favorable for studying, certifications, and exploring philosophy or religion.\n• Support from a mother figure or mentor may come.\n• Guard against over-dependence or laziness; rest when you need it.',
-  },
-};
-
-const DAYUN_PLAIN: Record<string, {
-  theme: { ko: string; en: string };
-  expect: { ko: string; en: string };
-  caution: { ko: string; en: string };
-}> = {
-  '비겁': {
-    theme: { ko: '독립과 경쟁의 시기', en: 'Competition & Independence' },
-    expect: {
-      ko: '나와 비슷한 사람들이 주변에 많아집니다. 독립적인 활동이나 나만의 길을 개척하려는 욕구가 강해지고, 새로운 파트너나 동료와의 연대 기회가 생깁니다. 자신의 능력을 직접 증명할 기회가 많아지는 시기입니다.',
-      en: "You'll encounter more peers and rivals. You'll feel a strong pull toward independence, and new partnerships or collaborations may emerge. Opportunities to prove your own abilities will increase.",
-    },
-    caution: {
-      ko: '경쟁 속에서 재물 손실에 주의하세요. 고집이 세져 갈등이 생기기 쉬우니 배려와 협력을 잊지 마세요. 형제·동료와의 분쟁 가능성도 있습니다.',
-      en: "Financial losses may arise from rivalry. Guard against stubbornness — cooperation and consideration for others are key. Disputes with siblings or business partners are possible.",
-    },
-  },
-  '식상': {
-    theme: { ko: '표현과 창조의 시기', en: 'Expression & Creativity' },
-    expect: {
-      ko: '창의적인 아이디어가 풍부해지고, 자신을 표현하고 싶은 욕구가 강해집니다. 새로운 사업 아이디어, 글쓰기, 강의, 예술 등 활동이 활발해집니다. 자녀와 관련된 일도 많아질 수 있습니다.',
-      en: 'Creative energy flourishes and you\'ll feel a strong urge to express yourself. New business ideas, writing, teaching, and artistic pursuits thrive. Matters related to children may also arise.',
-    },
-    caution: {
-      ko: '직장이나 권위자와의 관계가 불안정해질 수 있으니 말과 행동을 신중히 하세요. 아이디어는 많지만 실행력을 꾸준히 유지하는 것이 중요합니다.',
-      en: "Relationships with authority figures or at work may become unstable — be thoughtful in your words and actions. You'll have many ideas; the key is consistent follow-through.",
-    },
-  },
-  '재성': {
-    theme: { ko: '재물과 현실 성취의 시기', en: 'Wealth & Achievement' },
-    expect: {
-      ko: '재물 기회가 늘어나고 현실적인 성과를 거두기 좋은 시기입니다. 직장에서의 성과, 투자나 사업 확장, 이성 인연 등이 활발해집니다. 부지런히 움직이면 결실을 맺기 쉽습니다.',
-      en: 'Financial opportunities increase and practical achievements come more easily. Career performance, investment, business growth, and romantic connections are all favorable. Hard work is well rewarded.',
-    },
-    caution: {
-      ko: '과욕으로 인한 건강 악화나 재물 손실에 주의하세요. 여러 방면에 에너지를 분산하기보다 집중적으로 관리하는 것이 유리합니다.',
-      en: 'Guard against overexertion that strains your health or leads to financial missteps. Focus your energy on key priorities rather than spreading yourself too thin.',
-    },
-  },
-  '관성': {
-    theme: { ko: '명예와 직업운의 시기', en: 'Career & Recognition' },
-    expect: {
-      ko: '사회적인 인정을 받거나 직장에서 중요한 역할을 맡게 될 수 있습니다. 승진, 새로운 직책, 공직 진출 등의 기회가 오고, 규율과 책임감이 강조되는 시기입니다.',
-      en: 'Social recognition and career advancement become possible. Promotions, important roles, or public service opportunities may arrive. Discipline and responsibility are rewarded.',
-    },
-    caution: {
-      ko: '과도한 스트레스와 압박이 건강에 영향을 줄 수 있습니다. 법적 문제나 권위자와의 충돌을 조심하고, 충분한 휴식을 반드시 취하세요.',
-      en: 'Heavy pressure and stress may affect your health. Be careful of legal issues or conflicts with authority figures. Make time for adequate rest.',
-    },
-  },
-  '인성': {
-    theme: { ko: '학문과 인덕의 시기', en: 'Learning & Benefactors' },
-    expect: {
-      ko: '공부나 자기계발에 좋은 시기입니다. 귀인의 도움을 받거나, 자격증 취득, 철학·종교 탐구 등이 활발해집니다. 어머니나 스승의 영향이 크게 작용하는 시기입니다.',
-      en: 'A favorable time for study and self-development. You may receive support from a benefactor, achieve certifications, or explore philosophy and spirituality. A mother figure or mentor\'s influence may be significant.',
-    },
-    caution: {
-      ko: '지나치게 의존하거나 게을러질 수 있습니다. 활동적인 면이 줄어들기 쉬우니, 꾸준히 움직이고 배운 것을 실천하는 것이 중요합니다.',
-      en: "There's a tendency toward over-dependence or inactivity. Keep moving and putting things into practice — don't just absorb knowledge, act on it.",
-    },
-  },
-};
 
 const POSITION_EN: Record<string, string> = {
   '년주': 'Year', '월주': 'Month', '일주': 'Day', '시주': 'Hour',
@@ -684,46 +600,30 @@ function openDaYunModal(
 
   const sections: AnalysisModalContent['sections'] = [];
 
-  // 0. 사람 언어 해석 (맨 위)
-  if (sipsung) {
-    const plain = DAYUN_PLAIN[sipsung.category];
-    if (plain) {
-      const theme = lang === 'en' ? plain.theme.en : plain.theme.ko;
-      const expectText = lang === 'en' ? plain.expect.en : plain.expect.ko;
-      const cautionText = lang === 'en' ? plain.caution.en : plain.caution.ko;
-      sections.push({
-        heading: lang === 'en' ? `This Period: ${theme}` : `이 시기: ${theme}`,
-        text: (lang === 'en'
-          ? `What to expect:\n${expectText}\n\nWhat to watch out for:\n${cautionText}`
-          : `기대할 수 있는 일:\n${expectText}\n\n주의할 점:\n${cautionText}`),
-      });
-    }
-  }
-
-  // 1. 기술적 상세 (아래)
-  let energyText = '';
+  // 1. 십성 관계 + 천간/지지 기본 정보
+  let detailText = '';
   if (lang === 'en') {
-    energyText = `Stem ${stemEntry?.hangul || ''}(${stemChar}): ${stemEntry?.meaningEn || ''}\n\nBranch ${branchEntry?.hangul || ''}(${branchChar}): ${branchEntry?.meaningEn || ''}`;
+    detailText = `Stem ${stemEntry?.hangul || ''}(${stemChar}) · ${stemEntry?.ohang || ''} · ${stemEntry?.polarity || ''}\n${stemEntry?.meaningEn || ''}\n\nBranch ${branchEntry?.hangul || ''}(${branchChar}) · ${branchEntry?.ohang || ''} · ${branchEntry?.polarity || ''}\n${branchEntry?.meaningEn || ''}`;
     if (sipsung) {
-      energyText += `\n\nRelationship to your Day Master (${dayStem.hanja}): This cycle carries the energy of "${sipsung.korean}" (${sipsung.category}).`;
+      detailText += `\n\nDay Master ${dayStem.hanja} → Cycle Stem ${stemChar} = ${sipsung.korean} (${sipsung.category})`;
     }
   } else {
-    energyText = `천간 ${stemEntry?.hangul || ''}(${stemChar}): ${stemEntry?.meaning || ''}\n\n지지 ${branchEntry?.hangul || ''}(${branchChar}): ${branchEntry?.meaning || ''}`;
+    detailText = `천간 ${stemEntry?.hangul || ''}(${stemChar}) · ${stemEntry?.ohang || ''} · ${stemEntry?.polarity || ''}\n${stemEntry?.meaning || ''}\n\n지지 ${branchEntry?.hangul || ''}(${branchChar}) · ${branchEntry?.ohang || ''} · ${branchEntry?.polarity || ''}\n${branchEntry?.meaning || ''}`;
     if (sipsung) {
-      energyText += `\n\n일간(${dayStem.hanja})과의 관계: 이 대운은 "${sipsung.korean}" (${sipsung.category})의 기운을 가집니다.`;
+      detailText += `\n\n일간 ${dayStem.hanja} → 대운 천간 ${stemChar} = ${sipsung.korean} (${sipsung.category})`;
     }
   }
-  sections.push({ heading: lang === 'en' ? 'Elemental Details' : '사주 상세 분석', text: energyText });
+  sections.push({ heading: lang === 'en' ? 'Cycle Details' : '대운 정보', text: detailText });
 
-  // 2. 올해 운세 (현재 대운에만)
+  // 2. 올해 세운 (현재 대운에만)
   if (isCurrent && currentLiuNian) {
     const lnStem = CHEONGAN_DATA[currentLiuNian.ganZhi[0]];
     const lnBranch = JIJI_DATA[currentLiuNian.ganZhi[1]];
     const lnText = lang === 'en'
-      ? `${currentYear} · Age ${currentLiuNian.age} · ${currentLiuNian.ganZhi}\n\nStem ${lnStem?.hangul || ''}(${currentLiuNian.ganZhi[0]}): ${lnStem?.meaningEn || ''}\nBranch ${lnBranch?.hangul || ''}(${currentLiuNian.ganZhi[1]}): ${lnBranch?.meaningEn || ''}`
-      : `${currentYear}년 · 만 ${currentLiuNian.age}세 · ${currentLiuNian.ganZhi}\n\n천간 ${lnStem?.hangul || ''}(${currentLiuNian.ganZhi[0]}): ${lnStem?.meaning || ''}\n지지 ${lnBranch?.hangul || ''}(${currentLiuNian.ganZhi[1]}): ${lnBranch?.meaning || ''}`;
+      ? `${currentYear} · Age ${currentLiuNian.age} · ${currentLiuNian.ganZhi}\n\nStem ${lnStem?.hangul || ''}(${currentLiuNian.ganZhi[0]}) · ${lnStem?.ohang || ''}: ${lnStem?.meaningEn || ''}\nBranch ${lnBranch?.hangul || ''}(${currentLiuNian.ganZhi[1]}) · ${lnBranch?.ohang || ''}: ${lnBranch?.meaningEn || ''}`
+      : `${currentYear}년 · 만 ${currentLiuNian.age}세 · ${currentLiuNian.ganZhi}\n\n천간 ${lnStem?.hangul || ''}(${currentLiuNian.ganZhi[0]}) · ${lnStem?.ohang || ''}: ${lnStem?.meaning || ''}\n지지 ${lnBranch?.hangul || ''}(${currentLiuNian.ganZhi[1]}) · ${lnBranch?.ohang || ''}: ${lnBranch?.meaning || ''}`;
     sections.push({
-      heading: lang === 'en' ? `This Year's Fortune (${currentYear})` : `올해 운세 (${currentYear}년)`,
+      heading: lang === 'en' ? `This Year (${currentYear})` : `올해 세운 (${currentYear}년)`,
       text: lnText,
     });
   }
@@ -736,20 +636,9 @@ function openDaYunModal(
       : `${ln.year}년  만 ${ln.age}세  ${ln.ganZhi}${marker}`;
   }).join('\n');
   sections.push({
-    heading: lang === 'en' ? 'Annual Fortune (歲運) in this Cycle' : '이 시기의 세운 (歲運) 흐름',
+    heading: lang === 'en' ? 'Annual Fortune (歲運)' : '세운 (歲運) 흐름',
     text: liuNianText,
   });
-
-  // 4. 추천 조치
-  if (sipsung) {
-    const advice = DAYUN_ADVICE[sipsung.category];
-    if (advice) {
-      sections.push({
-        heading: lang === 'en' ? 'Recommended Actions' : '추천 조치',
-        text: lang === 'en' ? advice.en : advice.ko,
-      });
-    }
-  }
 
   onOpen({
     title: lang === 'en' ? `${dy.ganZhi} Major Fortune Cycle` : `${dy.ganZhi} 대운 (大運)`,
